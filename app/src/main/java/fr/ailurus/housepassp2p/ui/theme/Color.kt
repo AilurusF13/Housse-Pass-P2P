@@ -1,4 +1,4 @@
-package fr.ailurus.housepassp2p.compose
+package fr.ailurus.housepassp2p.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFFB8004A)

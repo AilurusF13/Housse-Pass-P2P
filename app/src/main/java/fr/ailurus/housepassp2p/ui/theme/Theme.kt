@@ -1,6 +1,7 @@
-package fr.ailurus.housepassp2p.compose
+package fr.ailurus.housepassp2p.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -10,8 +11,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTypography
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
+object AppDimensions {
+    val PaddingSmall = 8.dp
+    val PaddingMedium = 16.dp
+    val PaddingLarge = 24.dp
+    val PaddingExtraLarge = 32.dp
+
+    val AuthFieldWidth = 256.dp
+    val ElevationDefault = 16.dp
+}
+
+object BordersConfig {
+    val ShapeSmall = RoundedCornerShape(8.dp)
+    val ShapeMedium = RoundedCornerShape(12.dp)
+    val ShapeLarge = RoundedCornerShape(24.dp)
+
+    val ShapeMediumUpperAngle = RoundedCornerShape(
+        topStart = 12.dp,
+        topEnd = 12.dp,
+        bottomStart = 0.dp,
+        bottomEnd = 0.dp
+    )
+}
+
+object PinConfig {
+    val LetterSpacing = 8.sp
+    val FontSize = 24.sp
+}
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
     onPrimary = onPrimaryLight,
@@ -256,7 +285,7 @@ val unspecified_scheme = ColorFamily(
 fun HousePassP2PTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable() () -> Unit
 ) {
     val colorScheme = when {
@@ -265,7 +294,7 @@ fun HousePassP2PTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> darkScheme
+        darkTheme -> highContrastDarkColorScheme
         else -> lightScheme
     }
 
