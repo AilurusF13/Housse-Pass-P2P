@@ -1,4 +1,4 @@
-package fr.ailurus.housepassp2p.ui.theme.components.auth
+package fr.ailurus.housepassp2p.ui.components.auth
 
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults

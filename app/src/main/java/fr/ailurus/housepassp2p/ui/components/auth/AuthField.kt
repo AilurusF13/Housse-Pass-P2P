@@ -1,4 +1,4 @@
-package fr.ailurus.housepassp2p.ui.theme.components.auth
+package fr.ailurus.housepassp2p.ui.components.auth
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
