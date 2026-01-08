@@ -17,18 +17,21 @@ class LoginViewModel: ViewModel(
         private set
     var isErrorState by mutableStateOf(false)
         private set
-    var supportingText: String by mutableStateOf(IndicationCodeText)
+
+    val nullSupportText = ""
+    var supportingText: String? by mutableStateOf(IndicationCodeText)
         private set
     var isErrorLimitReached by mutableStateOf(false)
         private set
-    private var _errorCount = 0
     var isLoading by mutableStateOf(false)
         private set
+    var isConfirmationSuccessful by mutableStateOf(false)
+        private set
+    private var _errorCount = 0
 
     fun onCodeChange(newCode: CharArray){
-        if (newCode.isEmpty()){
-            supportingText = IndicationCodeText
-        }
+        isErrorState = false
+        supportingText = if (newCode.isEmpty()) IndicationCodeText else nullSupportText
 
         if (newCode.size <= Constants.CodeCharCount){
             isButtonEnabled = (newCode.size == Constants.CodeCharCount && !isLoading)
@@ -37,24 +40,25 @@ class LoginViewModel: ViewModel(
 
     fun onConfirm(newCode: CharArray){
         isLoading  = true
+        isConfirmationSuccessful = false
 
         viewModelScope.launch {
             try {
                 // TODO replace later the equal obviously
-                val realCode = CharArray(Constants.CodeCharCount)
-                realCode.fill(Char(1))
+                val realCode = CharArray(Constants.CodeCharCount) { '1' }
 
                 if (newCode.contentEquals(realCode)) {
                     isErrorState = false
-                    supportingText = ""
+                    supportingText = nullSupportText
                     _errorCount = 0
+                    isConfirmationSuccessful = true
 
                 } else {
                     isErrorState = true
                     supportingText = WrongCodeText
                     _errorCount += 1
                 }
-                isErrorLimitReached = _errorCount == ErrorLimit
+                isErrorLimitReached = _errorCount >= ErrorLimit
 
             } catch(e: Exception) {
             } finally {
@@ -71,6 +75,6 @@ class LoginViewModel: ViewModel(
     }
 }
 
-private const val WrongCodeText = "Retry your password"
+private const val WrongCodeText = "Retype your code"
 private const val IndicationCodeText = "Enter your PIN code"
 private const val ErrorLimit = 5

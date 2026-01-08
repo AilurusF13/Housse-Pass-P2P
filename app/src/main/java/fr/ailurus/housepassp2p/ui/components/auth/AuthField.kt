@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import fr.ailurus.housepassp2p.ui.theme.AppDimensions.AuthFieldWidth
 import fr.ailurus.housepassp2p.ui.theme.BordersConfig.ShapeMediumUpperAngle
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
-import fr.ailurus.housepassp2p.ui.theme.PinConfig.FontSize
 import fr.ailurus.housepassp2p.ui.theme.PinConfig.LetterSpacing
 import fr.ailurus.housepassp2p.ui.theme.PinVisualTransformation
 
@@ -55,7 +54,6 @@ fun AuthField(
         singleLine = true,
         textStyle = LocalTextStyle.current.copy(
             textAlign = TextAlign.Center,
-            fontSize = FontSize,
             letterSpacing = LetterSpacing
         ),
         shape = ShapeMediumUpperAngle,

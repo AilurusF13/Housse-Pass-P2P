@@ -2,10 +2,9 @@ package fr.ailurus.housepassp2p.ui.components.auth
 
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import fr.ailurus.housepassp2p.ui.theme.AppDimensions
 import fr.ailurus.housepassp2p.ui.theme.BordersConfig.ShapeMedium
 
 @Composable
@@ -16,10 +15,7 @@ fun AuthCard(
     Card(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+            defaultElevation = AppDimensions.ElevationMedium
         ),
         shape = ShapeMedium
     ){

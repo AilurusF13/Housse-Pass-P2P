@@ -21,7 +21,7 @@ object AppDimensions {
     val PaddingExtraLarge = 32.dp
 
     val AuthFieldWidth = 256.dp
-    val ElevationDefault = 16.dp
+    val ElevationMedium = 16.dp
 }
 
 object BordersConfig {
