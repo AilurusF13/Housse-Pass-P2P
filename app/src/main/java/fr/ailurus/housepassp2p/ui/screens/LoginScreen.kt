@@ -1,4 +1,4 @@
-package fr.ailurus.housepassp2p.ui.screen
+package fr.ailurus.housepassp2p.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -6,46 +6,58 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import fr.ailurus.housepassp2p.Constants
 import fr.ailurus.housepassp2p.ui.theme.AppDimensions
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.components.auth.AuthButton
 import fr.ailurus.housepassp2p.ui.components.auth.AuthCard
 import fr.ailurus.housepassp2p.ui.components.auth.AuthField
+import fr.ailurus.housepassp2p.ui.viewmodels.LoginViewModel
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-//    viewModel: LoginViewModel,
+    viewModel: LoginViewModel,
 ){
+    var code by remember {mutableStateOf("")}
+
     Column(
-        modifier = Modifier.Companion.fillMaxSize(),
-        horizontalAlignment = Alignment.Companion.CenterHorizontally,
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         AuthCard(
             modifier = modifier,
             content = {
                 Column(
-                    modifier = Modifier.Companion
+                    modifier = Modifier
                         .padding(AppDimensions.PaddingExtraLarge),
 
-                    horizontalAlignment = Alignment.Companion.CenterHorizontally,
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
                     AuthField(
-                        value = "1234",
-                        onValueChange = {},
+                        value = code,
+                        onValueChange = {
+                                code = if (it.length <= Constants.CodeCharCount) it else code
+                                viewModel.onCodeChange(it.toCharArray())
+                            },
                         label = "PIN code",
-                        supportingText = { Text("Enter your PIN code") }
+                        supportingText = { Text(viewModel.supportingText) },
+                        isError = viewModel.isErrorState
                     )
                     AuthButton(
-                        modifier = Modifier.Companion.padding(top = AppDimensions.PaddingSmall),
+                        modifier = Modifier.padding(top = AppDimensions.PaddingSmall),
                         text = "Next",
-                        onClick = {},
-                        enabled = true
+                        onClick = { viewModel.onConfirm(code.toCharArray()) },
+                        enabled = viewModel.isButtonEnabled
                     )
 
                 }
@@ -58,6 +70,6 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview(){
     HousePassP2PTheme {
-        LoginScreen()
+        LoginScreen(viewModel = LoginViewModel())
     }
 }
