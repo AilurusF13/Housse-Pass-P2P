@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import fr.ailurus.housepassp2p.ui.theme.AppDimensions.PaddingExtraLarge
-import fr.ailurus.housepassp2p.ui.theme.AppDimensions.PaddingMedium
-import fr.ailurus.housepassp2p.ui.theme.BordersConfig.ShapeMedium
+import fr.ailurus.housepassp2p.AppDimensions.PaddingExtraLarge
+import fr.ailurus.housepassp2p.AppDimensions.PaddingMedium
+import fr.ailurus.housepassp2p.BordersConfig.ShapeMedium
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 
 @Composable

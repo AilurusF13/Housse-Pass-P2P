@@ -4,8 +4,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import fr.ailurus.housepassp2p.ui.theme.AppDimensions
-import fr.ailurus.housepassp2p.ui.theme.BordersConfig.ShapeMedium
+import fr.ailurus.housepassp2p.AppDimensions
+import fr.ailurus.housepassp2p.BordersConfig.ShapeMedium
 
 @Composable
 fun AuthCard(

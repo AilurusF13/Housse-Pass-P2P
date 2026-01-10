@@ -22,7 +22,7 @@ import fr.ailurus.housepassp2p.Constants
 import fr.ailurus.housepassp2p.ui.components.auth.AuthButton
 import fr.ailurus.housepassp2p.ui.components.auth.AuthCard
 import fr.ailurus.housepassp2p.ui.components.auth.AuthField
-import fr.ailurus.housepassp2p.ui.theme.AppDimensions
+import fr.ailurus.housepassp2p.AppDimensions
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.viewmodels.LoginViewModel
 

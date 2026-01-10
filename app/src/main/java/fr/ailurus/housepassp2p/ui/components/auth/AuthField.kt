@@ -14,10 +14,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import fr.ailurus.housepassp2p.ui.theme.AppDimensions.AuthFieldWidth
-import fr.ailurus.housepassp2p.ui.theme.BordersConfig.ShapeMediumUpperAngle
+import fr.ailurus.housepassp2p.AppDimensions.AuthFieldWidth
+import fr.ailurus.housepassp2p.BordersConfig.ShapeMediumUpperAngle
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
-import fr.ailurus.housepassp2p.ui.theme.PinConfig.LetterSpacing
+import fr.ailurus.housepassp2p.PinConfig.LetterSpacing
 import fr.ailurus.housepassp2p.ui.theme.PinVisualTransformation
 
 @Composable
