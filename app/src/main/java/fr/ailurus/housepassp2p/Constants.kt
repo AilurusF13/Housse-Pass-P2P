@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 object Constants {
-    val CodeCharCount = 6
+    const val CODE_CHAR_COUNT = 6
 }
 
 object AppDimensions {

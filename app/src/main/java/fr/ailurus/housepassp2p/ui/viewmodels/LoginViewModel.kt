@@ -33,8 +33,8 @@ class LoginViewModel: ViewModel(
         isErrorState = false
         supportingText = if (newCode.isEmpty()) IndicationCodeText else nullSupportText
 
-        if (newCode.size <= Constants.CodeCharCount){
-            isButtonEnabled = (newCode.size == Constants.CodeCharCount && !isLoading)
+        if (newCode.size <= Constants.CODE_CHAR_COUNT){
+            isButtonEnabled = (newCode.size == Constants.CODE_CHAR_COUNT && !isLoading)
         }
     }
 
@@ -45,7 +45,7 @@ class LoginViewModel: ViewModel(
         viewModelScope.launch {
             try {
                 // TODO replace later the equal obviously
-                val realCode = CharArray(Constants.CodeCharCount) { '1' }
+                val realCode = CharArray(Constants.CODE_CHAR_COUNT) { '1' }
 
                 if (newCode.contentEquals(realCode)) {
                     isErrorState = false

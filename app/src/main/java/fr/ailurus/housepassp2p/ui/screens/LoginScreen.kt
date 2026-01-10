@@ -1,12 +1,15 @@
 package fr.ailurus.housepassp2p.ui.screens
 
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.keyframes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,6 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.ailurus.housepassp2p.Constants
@@ -31,6 +37,7 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel,
 ){
+    val context = LocalContext.current
     val shakeOffset = remember { Animatable(0f) }
 
     LaunchedEffect(viewModel.isErrorState) {
@@ -70,7 +77,7 @@ fun LoginScreen(
                     AuthField(
                         value = code,
                         onValueChange = {
-                                code = if (it.length <= Constants.CodeCharCount) it else code
+                                code = if (it.length <= Constants.CODE_CHAR_COUNT) it else code
                                 viewModel.onCodeChange(it.toCharArray())
                             },
                         label = "PIN code",
@@ -83,10 +90,26 @@ fun LoginScreen(
                         onClick = {
                             viewModel.onConfirm(code.toCharArray())
                             code = ""
+                            if (viewModel.isConfirmationSuccessful) {
+                                Toast.makeText(context, "Opening vault", Toast.LENGTH_SHORT).show()
+                            }
                         },
                         enabled = viewModel.isButtonEnabled
                     )
 
+                    if (viewModel.isErrorLimitReached){
+                        Text(
+                            modifier = Modifier.clickable{
+                                Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG ).show() // TODO change
+                            }
+                                .padding(top = AppDimensions.PaddingLarge)
+                            ,
+                            text =  "Erase vault and restore password",
+                            textDecoration = TextDecoration.Underline,
+                            fontStyle = FontStyle.Italic,
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                        )
+                    }
                 }
             },
         )

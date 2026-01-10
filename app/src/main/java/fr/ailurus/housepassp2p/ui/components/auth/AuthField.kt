@@ -18,7 +18,7 @@ import fr.ailurus.housepassp2p.AppDimensions.AuthFieldWidth
 import fr.ailurus.housepassp2p.BordersConfig.ShapeMediumUpperAngle
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.PinConfig.LetterSpacing
-import fr.ailurus.housepassp2p.ui.theme.PinVisualTransformation
+import fr.ailurus.housepassp2p.ui.theme.utils.PinVisualTransformation
 
 @Composable
 fun AuthField(
