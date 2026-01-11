@@ -13,6 +13,9 @@ import kotlinx.coroutines.launch
 class LoginViewModel: ViewModel(
     /* Nothing yet */
 ) {
+    var pinCode by mutableStateOf("")
+        private set
+
     var isButtonEnabled by mutableStateOf(false)
         private set
     var isErrorState by mutableStateOf(false)
@@ -29,27 +32,28 @@ class LoginViewModel: ViewModel(
         private set
     private var _errorCount = 0
 
-    fun onCodeChange(newCode: CharArray){
+    fun onCodeChange(newCode: String){
         isErrorState = false
-        supportingText = if (newCode.isEmpty()) IndicationCodeText else nullSupportText
-
-        if (newCode.size <= Constants.CODE_CHAR_COUNT){
-            isButtonEnabled = (newCode.size == Constants.CODE_CHAR_COUNT && !isLoading)
+        if (newCode.length <= Constants.CODE_CHAR_COUNT){
+            pinCode = newCode
+            supportingText = IndicationCodeText
+            isButtonEnabled = (newCode.length == Constants.CODE_CHAR_COUNT && !isLoading)
         }
     }
 
-    fun onConfirm(newCode: CharArray){
+    fun onConfirm(){
         isLoading  = true
-        isConfirmationSuccessful = false
+//        isConfirmationSuccessful = false
+
+        val codeToCheck = pinCode.toCharArray()
 
         viewModelScope.launch {
             try {
                 // TODO replace later the equal obviously
                 val realCode = CharArray(Constants.CODE_CHAR_COUNT) { '1' }
 
-                if (newCode.contentEquals(realCode)) {
-                    isErrorState = false
-                    supportingText = nullSupportText
+                if (realCode.contentEquals(codeToCheck)) {
+//                    isErrorState = false
                     _errorCount = 0
                     isConfirmationSuccessful = true
 
@@ -58,11 +62,12 @@ class LoginViewModel: ViewModel(
                     supportingText = WrongCodeText
                     _errorCount += 1
                 }
+                pinCode = ""
                 isErrorLimitReached = _errorCount >= ErrorLimit
 
             } catch(e: Exception) {
             } finally {
-                newCode.fill(Char(0))
+                codeToCheck.fill(Char(0))
                 isLoading = false
             }
         }

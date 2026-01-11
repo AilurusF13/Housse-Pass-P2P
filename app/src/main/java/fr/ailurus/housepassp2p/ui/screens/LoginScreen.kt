@@ -47,8 +47,6 @@ fun LoginScreen(
         }
     }
 
-    var code by remember {mutableStateOf("")}
-
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,10 +63,9 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.Center,
                 ) {
                     AuthField(
-                        value = code,
+                        value = viewModel.pinCode,
                         onValueChange = {
-                                code = if (it.length <= Constants.CODE_CHAR_COUNT) it else code
-                                viewModel.onCodeChange(it.toCharArray())
+                                viewModel.onCodeChange(it)
                             },
                         label = "PIN code",
                         supportingText = { Text(viewModel.supportingText) },
@@ -78,9 +75,7 @@ fun LoginScreen(
                         modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
                         text = "Next",
                         onClick = {
-
-                            viewModel.onConfirm(code.toCharArray())
-                            code = ""
+                            viewModel.onConfirm()
                             if (viewModel.isConfirmationSuccessful) {
                                 Toast.makeText(context, "Opening vault", Toast.LENGTH_SHORT).show()
                             }
@@ -90,10 +85,11 @@ fun LoginScreen(
 
                     if (viewModel.isErrorLimitReached){
                         Text(
-                            modifier = Modifier.clickable{
+                            modifier = Modifier
+                                .padding(top = AppDimensions.PaddingLarge)
+                                .clickable{
                                 Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG ).show() // TODO change
                             }
-                                .padding(top = AppDimensions.PaddingLarge)
                             ,
                             text =  "Erase vault and restore password",
                             textDecoration = TextDecoration.Underline,
