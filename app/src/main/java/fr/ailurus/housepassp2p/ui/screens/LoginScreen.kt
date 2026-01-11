@@ -75,7 +75,7 @@ fun LoginScreen(
                         isError = viewModel.isErrorState
                     )
                     AuthButton(
-                        modifier = Modifier.padding(top = AppDimensions.PaddingSmall),
+                        modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
                         text = "Next",
                         onClick = {
 

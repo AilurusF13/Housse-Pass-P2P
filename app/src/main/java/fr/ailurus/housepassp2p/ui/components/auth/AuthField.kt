@@ -5,8 +5,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +42,7 @@ fun AuthField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
+//        label = { Text(label) },
         isError = isError,
         enabled = enabled,
         modifier = modifier.width(AuthFieldWidth),
@@ -58,7 +62,11 @@ fun AuthField(
         ),
         shape = ShapeMediumUpperAngle,
 
-
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            errorContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+        )
     )
 }
 

@@ -73,6 +73,7 @@ fun StartupScreen(
 
                     // Auth field confirmation
                     AuthField(
+                        modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
                         value = confirm,
                         onValueChange = {
                             confirm = if (it.length <= Constants.CODE_CHAR_COUNT) it else confirm
@@ -85,7 +86,7 @@ fun StartupScreen(
 
                     // Confirm Button
                     AuthButton(
-                        modifier = Modifier.padding(top = AppDimensions.PaddingSmall),
+                        modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
                         text = "Create",
                         onClick = {},
                         enabled = viewModel.isButtonEnabled

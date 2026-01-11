@@ -264,7 +264,7 @@ fun HousePassP2PTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> highContrastDarkColorScheme
+        darkTheme -> darkScheme
         else -> lightScheme
     }
 
