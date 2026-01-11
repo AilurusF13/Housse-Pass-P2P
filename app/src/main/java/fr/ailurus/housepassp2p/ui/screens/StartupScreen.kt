@@ -69,7 +69,7 @@ fun StartupScreen(
                         },
                         label = "PIN code",
                         supportingText = { Text(viewModel.codeSupportText) },
-                        isError = viewModel.isErrorState,
+                        isError = false,
                     )
 
                     // Auth field confirmation
@@ -82,7 +82,7 @@ fun StartupScreen(
                         },
                         label = "Confirm PIN code",
                         supportingText = { Text(viewModel.confirmSupportText) },
-                        isError = false
+                        isError = viewModel.isErrorState
                     )
 
                     // Confirm Button

@@ -43,7 +43,6 @@ class LoginViewModel: ViewModel(
 
     fun onConfirm(){
         isLoading  = true
-//        isConfirmationSuccessful = false
 
         val codeToCheck = pinCode.toCharArray()
 
@@ -53,7 +52,6 @@ class LoginViewModel: ViewModel(
                 val realCode = CharArray(Constants.CODE_CHAR_COUNT) { '1' }
 
                 if (realCode.contentEquals(codeToCheck)) {
-//                    isErrorState = false
                     _errorCount = 0
                     isConfirmationSuccessful = true
 
@@ -63,6 +61,7 @@ class LoginViewModel: ViewModel(
                     _errorCount += 1
                 }
                 pinCode = ""
+                isButtonEnabled = false
                 isErrorLimitReached = _errorCount >= ErrorLimit
 
             } catch(e: Exception) {

@@ -45,7 +45,8 @@ class SetupViewModel : ViewModel() {
     }
 
     fun onConfirm() {
-
+        pinCode = ""
+        confirmCode = ""
     }
 
     /**
