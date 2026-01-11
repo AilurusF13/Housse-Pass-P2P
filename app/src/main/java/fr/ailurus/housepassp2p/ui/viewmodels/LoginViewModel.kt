@@ -19,7 +19,7 @@ class LoginViewModel: ViewModel(
         private set
 
     val nullSupportText = ""
-    var supportingText: String? by mutableStateOf(IndicationCodeText)
+    var supportingText: String by mutableStateOf(IndicationCodeText)
         private set
     var isErrorLimitReached by mutableStateOf(false)
         private set
