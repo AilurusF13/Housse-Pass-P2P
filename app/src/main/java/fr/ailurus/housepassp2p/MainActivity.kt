@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -24,7 +23,7 @@ import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.screens.LoginScreen
 import fr.ailurus.housepassp2p.ui.screens.StartupScreen
 import fr.ailurus.housepassp2p.ui.viewmodels.LoginViewModel
-import fr.ailurus.housepassp2p.ui.viewmodels.StartupViewModel
+import fr.ailurus.housepassp2p.ui.viewmodels.SetupViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class MainActivity : ComponentActivity() {
 fun HousePassP2PApp() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.LOGIN) }
     val loginViewModel = LoginViewModel()
-    val startupViewModel = StartupViewModel()
+    val setupViewModel = SetupViewModel()
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -64,7 +63,7 @@ fun HousePassP2PApp() {
     ) {
         when (currentDestination){
             AppDestinations.LOGIN -> LoginScreen(viewModel = loginViewModel)
-            AppDestinations.STARTUP -> StartupScreen(viewModel = startupViewModel)
+            AppDestinations.STARTUP -> StartupScreen(viewModel = setupViewModel)
             AppDestinations.PROFILE -> LoginScreen(viewModel = loginViewModel)
         }
     }
