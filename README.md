@@ -38,7 +38,7 @@ The application is built to run on the Kotlin JVM, prioritizing security.
     |-- group   # Group management and sharing
 ```
 
-## Prototype Status
+## Prototype https://github.com/AilurusF13/VaultFamily
 
 An early prototype is available with the following functional features:
 
