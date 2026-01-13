@@ -12,17 +12,19 @@ import fr.ailurus.housepassp2p.BordersConfig.ShapeMedium
 fun AuthCard(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
-){
+) {
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = AppDimensions.ElevationMedium
-        ),
+        elevation =
+            CardDefaults.cardElevation(
+                defaultElevation = AppDimensions.ElevationMedium,
+            ),
         shape = ShapeMedium,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
-        )
-    ){
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+            ),
+    ) {
         content()
     }
 }

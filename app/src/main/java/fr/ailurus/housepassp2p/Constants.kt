@@ -20,15 +20,20 @@ object AppDimensions {
 
 object BordersConfig {
     val ShapeSmall = RoundedCornerShape(8.dp)
-    val ShapeMedium = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
-    val ShapeLarge = androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
+    val ShapeMedium =
+        androidx.compose.foundation.shape
+            .RoundedCornerShape(12.dp)
+    val ShapeLarge =
+        androidx.compose.foundation.shape
+            .RoundedCornerShape(24.dp)
 
-    val ShapeMediumUpperAngle = RoundedCornerShape(
-        topStart = 12.dp,
-        topEnd = 12.dp,
-        bottomStart = 0.dp,
-        bottomEnd = 0.dp
-    )
+    val ShapeMediumUpperAngle =
+        RoundedCornerShape(
+            topStart = 12.dp,
+            topEnd = 12.dp,
+            bottomStart = 0.dp,
+            bottomEnd = 0.dp,
+        )
 }
 
 object PinConfig {

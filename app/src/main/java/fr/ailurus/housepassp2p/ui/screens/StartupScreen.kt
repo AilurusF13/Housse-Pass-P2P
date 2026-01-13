@@ -32,31 +32,31 @@ import fr.ailurus.housepassp2p.ui.viewmodels.SetupViewModel
 fun StartupScreen(
     modifier: Modifier = Modifier,
     viewModel: SetupViewModel,
-){
+) {
     val context = LocalContext.current
     val shakeOffset = remember { Animatable(0f) }
 
     LaunchedEffect(viewModel.isErrorState) {
-        if (viewModel.isErrorState){
+        if (viewModel.isErrorState) {
             shakeOffset.shake()
         }
     }
 
-    var code by remember {mutableStateOf("")}
-    var confirm by remember {mutableStateOf("")}
+    var code by remember { mutableStateOf("") }
+    var confirm by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-    ){
+    ) {
         AuthCard(
-            modifier = Modifier.offset (x = shakeOffset.value.dp),
+            modifier = Modifier.offset(x = shakeOffset.value.dp),
             content = {
                 Column(
-                    modifier = Modifier
-                        .padding(AppDimensions.PaddingExtraLarge),
-
+                    modifier =
+                        Modifier
+                            .padding(AppDimensions.PaddingExtraLarge),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
@@ -82,7 +82,7 @@ fun StartupScreen(
                         },
                         label = "Confirm PIN code",
                         supportingText = { Text(viewModel.confirmSupportText) },
-                        isError = viewModel.isErrorState
+                        isError = viewModel.isErrorState,
                     )
 
                     // Confirm Button
@@ -91,19 +91,19 @@ fun StartupScreen(
                         text = "Create",
                         onClick = {
                             viewModel.onConfirm()
-                            Toast.makeText(context, "Setting up database", Toast.LENGTH_LONG ).show()
+                            Toast.makeText(context, "Setting up database", Toast.LENGTH_LONG).show()
                         },
-                        enabled = viewModel.isButtonEnabled
+                        enabled = viewModel.isButtonEnabled,
                     )
                 }
-            }
+            },
         )
     }
 }
 
 @Preview
 @Composable
-fun StartupScreenPreview(){
+fun StartupScreenPreview() {
     HousePassP2PTheme {
         StartupScreen(viewModel = SetupViewModel(), modifier = Modifier)
     }

@@ -10,9 +10,10 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import fr.ailurus.housepassp2p.Constants
 import kotlinx.coroutines.launch
 
-class LoginViewModel: ViewModel(
-    /* Nothing yet */
-) {
+class LoginViewModel :
+    ViewModel(
+        // Nothing yet
+    ) {
     var pinCode by mutableStateOf("")
         private set
 
@@ -22,7 +23,7 @@ class LoginViewModel: ViewModel(
         private set
 
     val nullSupportText = ""
-    var supportingText: String by mutableStateOf(IndicationCodeText)
+    var supportingText: String by mutableStateOf(INDICATION_CODE_TEXT)
         private set
     var isErrorLimitReached by mutableStateOf(false)
         private set
@@ -30,19 +31,19 @@ class LoginViewModel: ViewModel(
         private set
     var isConfirmationSuccessful by mutableStateOf(false)
         private set
-    private var _errorCount = 0
+    private var errorCount = 0
 
-    fun onCodeChange(newCode: String){
+    fun onCodeChange(newCode: String) {
         isErrorState = false
-        if (newCode.length <= Constants.CODE_CHAR_COUNT){
+        if (newCode.length <= Constants.CODE_CHAR_COUNT) {
             pinCode = newCode
-            supportingText = IndicationCodeText
+            supportingText = INDICATION_CODE_TEXT
             isButtonEnabled = (newCode.length == Constants.CODE_CHAR_COUNT && !isLoading)
         }
     }
 
-    fun onConfirm(){
-        isLoading  = true
+    fun onConfirm() {
+        isLoading = true
 
         val codeToCheck = pinCode.toCharArray()
 
@@ -52,19 +53,17 @@ class LoginViewModel: ViewModel(
                 val realCode = CharArray(Constants.CODE_CHAR_COUNT) { '1' }
 
                 if (realCode.contentEquals(codeToCheck)) {
-                    _errorCount = 0
+                    errorCount = 0
                     isConfirmationSuccessful = true
-
                 } else {
                     isErrorState = true
-                    supportingText = WrongCodeText
-                    _errorCount += 1
+                    supportingText = WRONG_CODE_TEXT
+                    errorCount += 1
                 }
                 pinCode = ""
                 isButtonEnabled = false
-                isErrorLimitReached = _errorCount >= ErrorLimit
-
-            } catch(e: Exception) {
+                isErrorLimitReached = errorCount >= ERROR_LIMIT
+            } catch (e: Exception) {
             } finally {
                 codeToCheck.fill(Char(0))
                 isLoading = false
@@ -72,13 +71,14 @@ class LoginViewModel: ViewModel(
         }
     }
 
-    val loginViewModelFactory = viewModelFactory {
-        initializer {
-            LoginViewModel()
+    val loginViewModelFactory =
+        viewModelFactory {
+            initializer {
+                LoginViewModel()
+            }
         }
-    }
 }
 
-private const val WrongCodeText = "Retype your code"
-private const val IndicationCodeText = "Enter your PIN code"
-private const val ErrorLimit = 5
+private const val WRONG_CODE_TEXT = "Retype your code"
+private const val INDICATION_CODE_TEXT = "Enter your PIN code"
+private const val ERROR_LIMIT = 5

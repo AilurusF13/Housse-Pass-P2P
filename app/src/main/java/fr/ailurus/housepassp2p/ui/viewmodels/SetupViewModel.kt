@@ -9,7 +9,6 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import fr.ailurus.housepassp2p.Constants
 
 class SetupViewModel : ViewModel() {
-
     var pinCode by mutableStateOf("")
         private set
 
@@ -22,10 +21,10 @@ class SetupViewModel : ViewModel() {
     var isButtonEnabled by mutableStateOf(false)
         private set
 
-    var codeSupportText: String by mutableStateOf(IndicationCodeText)
+    var codeSupportText: String by mutableStateOf(INDICATION_CODE_TEXT)
         private set
 
-    var confirmSupportText: String by mutableStateOf(IndicationConfirmText)
+    var confirmSupportText: String by mutableStateOf(INDICATION_CONFIRM_TEXT)
         private set
 
     fun onCodeChange(newCode: String) {
@@ -65,22 +64,23 @@ class SetupViewModel : ViewModel() {
         // Error logic: Only show error if user finished typing confirm code and it's wrong
         if (isConfirmFull && !areCodesMatching) {
             isErrorState = true
-            confirmSupportText = ErrorMatchText
+            confirmSupportText = ERROR_MATCH_TEXT
         } else {
             isErrorState = false
-            confirmSupportText = IndicationConfirmText
+            confirmSupportText = INDICATION_CONFIRM_TEXT
         }
     }
 
     companion object {
-        val setupViewModelFactory = viewModelFactory {
-            initializer {
-                SetupViewModel()
+        val setupViewModelFactory =
+            viewModelFactory {
+                initializer {
+                    SetupViewModel()
+                }
             }
-        }
     }
 }
 
-private const val IndicationCodeText = "Enter your PIN code"
-private const val IndicationConfirmText = "Confirm your PIN code"
-private const val ErrorMatchText = "Codes must match"
+private const val INDICATION_CODE_TEXT = "Enter your PIN code"
+private const val INDICATION_CONFIRM_TEXT = "Confirm your PIN code"
+private const val ERROR_MATCH_TEXT = "Codes must match"

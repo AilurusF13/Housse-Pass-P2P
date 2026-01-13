@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import fr.ailurus.housepassp2p.AppDimensions.AuthFieldWidth
 import fr.ailurus.housepassp2p.BordersConfig.ShapeMediumUpperAngle
-import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.PinConfig.LetterSpacing
+import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.theme.utils.PinVisualTransformation
 
 @Composable
@@ -32,11 +30,9 @@ fun AuthField(
     label: String,
     isError: Boolean = false,
     enabled: Boolean = true,
-
     supportingText: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-
     visualTransformation: VisualTransformation = PinVisualTransformation(),
 ) {
     TextField(
@@ -46,27 +42,27 @@ fun AuthField(
         isError = isError,
         enabled = enabled,
         modifier = modifier.width(AuthFieldWidth),
-
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         supportingText = supportingText,
-
         visualTransformation = visualTransformation,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.NumberPassword,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                keyboardType = KeyboardType.NumberPassword,
+            ),
         singleLine = true,
-        textStyle = LocalTextStyle.current.copy(
-            textAlign = TextAlign.Center,
-            letterSpacing = LetterSpacing
-        ),
+        textStyle =
+            LocalTextStyle.current.copy(
+                textAlign = TextAlign.Center,
+                letterSpacing = LetterSpacing,
+            ),
         shape = ShapeMediumUpperAngle,
-
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-            errorContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-        )
+        colors =
+            TextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                errorContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            ),
     )
 }
 
@@ -79,7 +75,7 @@ fun AuthFieldPreview() {
                 value = "1234",
                 onValueChange = {},
                 label = "PIN code",
-                supportingText = { Text("Enter your PIN code") }
+                supportingText = { Text("Enter your PIN code") },
             )
         }
     }

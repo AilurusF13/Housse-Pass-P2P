@@ -19,9 +19,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
-import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.screens.LoginScreen
 import fr.ailurus.housepassp2p.ui.screens.StartupScreen
+import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.viewmodels.LoginViewModel
 import fr.ailurus.housepassp2p.ui.viewmodels.SetupViewModel
 
@@ -51,17 +51,17 @@ fun HousePassP2PApp() {
                     icon = {
                         Icon(
                             it.icon,
-                            contentDescription = it.label
+                            contentDescription = it.label,
                         )
                     },
                     label = { Text(it.label) },
                     selected = it == currentDestination,
-                    onClick = { currentDestination = it }
+                    onClick = { currentDestination = it },
                 )
             }
-        }
+        },
     ) {
-        when (currentDestination){
+        when (currentDestination) {
             AppDestinations.LOGIN -> LoginScreen(viewModel = loginViewModel)
             AppDestinations.STARTUP -> StartupScreen(viewModel = setupViewModel)
             AppDestinations.PROFILE -> LoginScreen(viewModel = loginViewModel)

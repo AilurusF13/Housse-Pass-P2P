@@ -9,8 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.ailurus.housepassp2p.AppDimensions
@@ -25,22 +23,24 @@ fun AuthButton(
     text: String,
     onClick: () -> Unit,
     enabled: Boolean,
-){
+) {
     Button(
         enabled = enabled,
         onClick = onClick,
         shape = ShapeMedium,
-        contentPadding = PaddingValues(
-            PaddingExtraLarge,
-            PaddingMedium,
-            PaddingExtraLarge,
-            PaddingMedium,
-        ),
-        elevation = ButtonDefaults.buttonElevation(
-            pressedElevation = 0.dp,
-            defaultElevation = AppDimensions.ElevationMedium
-        ),
-        modifier = modifier
+        contentPadding =
+            PaddingValues(
+                PaddingExtraLarge,
+                PaddingMedium,
+                PaddingExtraLarge,
+                PaddingMedium,
+            ),
+        elevation =
+            ButtonDefaults.buttonElevation(
+                pressedElevation = 0.dp,
+                defaultElevation = AppDimensions.ElevationMedium,
+            ),
+        modifier = modifier,
     ) {
         Text(text)
     }
@@ -48,11 +48,11 @@ fun AuthButton(
 
 @Preview(showBackground = true)
 @Composable
-fun AuthButtonPreview(){
+fun AuthButtonPreview() {
     HousePassP2PTheme {
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             AuthButton(
-                text ="Next",
+                text = "Next",
                 onClick = {},
                 enabled = true,
             )
