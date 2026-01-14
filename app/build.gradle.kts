@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ktlint)
+    alias(libs.plugins.kotlin.symbol.processing)
 }
 
 android {
@@ -71,4 +72,12 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+
+    ksp(libs.androidx.room.compiler)
+
+    implementation(libs.sqlcipher.android)
+    implementation(libs.sqlite.ktx)
 }

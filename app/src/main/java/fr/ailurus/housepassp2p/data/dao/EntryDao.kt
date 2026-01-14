@@ -19,6 +19,10 @@ interface EntryDao {
     @Query("SELECT id, site_name, user_login, group_id FROM entries ORDER BY created_at")
     fun getEntries(): Flow<List<EntrySummary>>
 
+    //  Mostly for debug tests
+    @Query("SELECT id, site_name, user_login, group_id FROM entries")
+    suspend fun getAllOnce(): List<EntrySummary>
+
     @Query("SELECT password_blob FROM entries WHERE id = :id")
     suspend fun getPassword(id: Int): ByteArray?
 

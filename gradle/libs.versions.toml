@@ -12,6 +12,9 @@ uiTextGoogleFonts = "1.10.0"
 ktlint = "14.0.1"
 roomCommonJvm = "2.8.4"
 roomKtx = "2.8.4"
+ksp = "2.0.21-1.0.25" # Doit correspondre à ta version de Kotlin (2.0.21)
+room = "2.6.1"        # Version stable recommandée
+sqlcipher = "4.5.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,10 +35,16 @@ androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compo
 androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+# Room
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+# SQLCipher pour le chiffrement
+sqlcipher-android = { group = "net.zetetic", name = "android-database-sqlcipher", version.ref = "sqlcipher" }
+sqlite-ktx = { group = "androidx.sqlite", name = "sqlite-ktx", version = "2.4.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-ktlint = {id= "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint"}
-
+kotlin-symbol-processing = { id = "com.google.devtools.ksp", version.ref = "ksp" }

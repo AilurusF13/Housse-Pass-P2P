@@ -11,8 +11,8 @@ import androidx.room.PrimaryKey
     foreignKeys = [
         ForeignKey(
             entity = Group::class,
-            parentColumns = ["groupId"],
-            childColumns = ["groupId"],
+            parentColumns = ["group_id"],
+            childColumns = ["group_id"],
             onDelete = ForeignKey.CASCADE,
         ),
     ],
@@ -70,5 +70,4 @@ data class EntrySummary(
     @ColumnInfo(name = "site_name") val site: String,
     @ColumnInfo(name = "user_login") val login: String,
     @ColumnInfo(name = "group_id") val groupId: Int,
-    @ColumnInfo(name = "created_at") val timestamp: Long,
 )

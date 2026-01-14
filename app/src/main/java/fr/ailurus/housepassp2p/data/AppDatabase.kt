@@ -1,11 +1,11 @@
 package fr.ailurus.housepassp2p.data
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.SQLiteConnection
-import androidx.sqlite.db.SupportSQLiteOpenHelper.Factory
+import androidx.sqlite.db.SupportSQLiteDatabase
 import fr.ailurus.housepassp2p.data.dao.EntryDao
 import fr.ailurus.housepassp2p.data.dao.GroupDao
 import fr.ailurus.housepassp2p.data.entities.Entry
@@ -13,6 +13,7 @@ import fr.ailurus.housepassp2p.data.entities.Group
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.sqlcipher.database.SupportFactory
 
 @Database(
     entities = [
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
         Group::class,
     ],
     version = 1,
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun entryDao(): EntryDao
@@ -30,43 +32,56 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
 
-        // val passphrase =  UUID.randomUUID().toString().toByteArray() -> temporary passphrase to use in the calling method
-        // factory = SupportFactory(passphrase)
-
-        fun getDatabase(
-            context: Context,
-            factory: Factory,
-        ): AppDatabase =
+        fun getDatabase(context: Context): AppDatabase =
             instance ?: synchronized(this) {
-                val instance =
-                    Room
-                        .databaseBuilder(
-                            context.applicationContext,
-                            AppDatabase::class.java,
-                            "house-pass-db",
-                        ).openHelperFactory(factory)
-                        .addCallback(
-                            object : Callback() {
-                                override fun onCreate(connection: SQLiteConnection) {
-                                    super.onCreate(connection)
-                                    CoroutineScope(Dispatchers.IO).launch {
-                                        instance?.let { db ->
-                                            db.groupDao().insert(SELF_GROUP)
-
-                                            // temporary for testing purposes DELETEME
-                                            db.groupDao().insert(MOCK_GROUP_1)
-                                            db.groupDao().insert(MOCK_GROUP_2)
-                                            db.groupDao().insert(MOCK_GROUP_3)
-                                            db.groupDao().insert(MOCK_GROUP_4)
-                                            db.entryDao().insertEntries(PREPOPULATE_ENTRIES)
-                                        }
-                                    }
-                                }
-                            },
-                        ).build()
-                Companion.instance = instance
-                instance
+                val db = buildDatabase(context)
+                instance = db
+                db
             }
+
+        private fun buildDatabase(context: Context): AppDatabase {
+            // Configuration de la sécurité
+            val factory = createHelperFactory()
+
+            return Room
+                .databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "house-pass-db",
+                ).openHelperFactory(factory)
+                .addCallback(DatabaseCallback(context))
+                .build()
+        }
+
+        private fun createHelperFactory(): SupportFactory {
+            // TODO: Implement keystore here later
+            val passphrase = "DEFAULT_PASSPHRASE".toByteArray()
+            return SupportFactory(passphrase)
+        }
+
+        private class DatabaseCallback(
+            private val context: Context,
+        ) : Callback() {
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+                CoroutineScope(Dispatchers.IO).launch {
+                    val db = getDatabase(context)
+                    prepopulate(db)
+                }
+            }
+        }
+
+        private suspend fun prepopulate(db: AppDatabase) {
+            Log.d("PREPOPULATE", "PREPOPULATE TRIGGERED")
+            db.groupDao().insert(SELF_GROUP)
+
+            // Mocks data deleteme
+            db.groupDao().insert(MOCK_GROUP_1)
+            db.groupDao().insert(MOCK_GROUP_2)
+            db.groupDao().insert(MOCK_GROUP_3)
+            db.groupDao().insert(MOCK_GROUP_4)
+            db.entryDao().insertEntries(PREPOPULATE_ENTRIES)
+        }
 
         // TODO Default Name and Description should be edited in the future, maybe a bit more dependent to the system language
         val SELF_GROUP =
@@ -119,8 +134,20 @@ abstract class AppDatabase : RoomDatabase() {
                     password = "pwd".toByteArray(),
                     timestamp = 1705200000000,
                 ),
-                Entry(site = "Impôts Gouv", login = "ailurus_fr", groupId = 1, password = "pwd".toByteArray(), timestamp = 1705200000001),
-                Entry(site = "Doctolib", login = "0601020304", groupId = 1, password = "pwd".toByteArray(), timestamp = 1705200000002),
+                Entry(
+                    site = "Impôts Gouv",
+                    login = "ailurus_fr",
+                    groupId = 1,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000001,
+                ),
+                Entry(
+                    site = "Doctolib",
+                    login = "0601020304",
+                    groupId = 1,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000002,
+                ),
                 Entry(
                     site = "Assurance Maladie",
                     login = "199010203040",
@@ -129,7 +156,13 @@ abstract class AppDatabase : RoomDatabase() {
                     timestamp = 1705200000003,
                 ),
                 // Group 2: MOCK_GROUP_1 (Projet L3)
-                Entry(site = "GitHub", login = "ailurus-dev", groupId = 2, password = "pwd".toByteArray(), timestamp = 1705200000004),
+                Entry(
+                    site = "GitHub",
+                    login = "ailurus-dev",
+                    groupId = 2,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000004,
+                ),
                 Entry(
                     site = "GitLab (Université)",
                     login = "etu_math_info",
@@ -144,7 +177,13 @@ abstract class AppDatabase : RoomDatabase() {
                     password = "pwd".toByteArray(),
                     timestamp = 1705200000006,
                 ),
-                Entry(site = "Trello Team", login = "dev_leader", groupId = 2, password = "pwd".toByteArray(), timestamp = 1705200000007),
+                Entry(
+                    site = "Trello Team",
+                    login = "dev_leader",
+                    groupId = 2,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000007,
+                ),
                 // Group 3: MOCK_GROUP_2 (Famille)
                 Entry(
                     site = "Netflix",
@@ -175,12 +214,42 @@ abstract class AppDatabase : RoomDatabase() {
                     timestamp = 1705200000011,
                 ),
                 // Group 4: MOCK_GROUP_3 (Gaming)
-                Entry(site = "Steam", login = "GamerZ_99", groupId = 4, password = "pwd".toByteArray(), timestamp = 1705200000012),
-                Entry(site = "Epic Games", login = "ailurus_play", groupId = 4, password = "pwd".toByteArray(), timestamp = 1705200000013),
-                Entry(site = "Battle.net", login = "healer_main", groupId = 4, password = "pwd".toByteArray(), timestamp = 1705200000014),
-                Entry(site = "Discord", login = "ailurus#1337", groupId = 4, password = "pwd".toByteArray(), timestamp = 1705200000015),
+                Entry(
+                    site = "Steam",
+                    login = "GamerZ_99",
+                    groupId = 4,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000012,
+                ),
+                Entry(
+                    site = "Epic Games",
+                    login = "ailurus_play",
+                    groupId = 4,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000013,
+                ),
+                Entry(
+                    site = "Battle.net",
+                    login = "healer_main",
+                    groupId = 4,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000014,
+                ),
+                Entry(
+                    site = "Discord",
+                    login = "ailurus#1337",
+                    groupId = 4,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000015,
+                ),
                 // Group 5: MOCK_GROUP_4 (Services Cloud)
-                Entry(site = "AWS Console", login = "root_user", groupId = 5, password = "pwd".toByteArray(), timestamp = 1705200000016),
+                Entry(
+                    site = "AWS Console",
+                    login = "root_user",
+                    groupId = 5,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000016,
+                ),
                 Entry(
                     site = "Azure Portal",
                     login = "student@azure.com",
@@ -188,8 +257,20 @@ abstract class AppDatabase : RoomDatabase() {
                     password = "pwd".toByteArray(),
                     timestamp = 1705200000017,
                 ),
-                Entry(site = "Heroku", login = "deploy_bot", groupId = 5, password = "pwd".toByteArray(), timestamp = 1705200000018),
-                Entry(site = "Cloudflare", login = "dns_admin", groupId = 5, password = "pwd".toByteArray(), timestamp = 1705200000019),
+                Entry(
+                    site = "Heroku",
+                    login = "deploy_bot",
+                    groupId = 5,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000018,
+                ),
+                Entry(
+                    site = "Cloudflare",
+                    login = "dns_admin",
+                    groupId = 5,
+                    password = "pwd".toByteArray(),
+                    timestamp = 1705200000019,
+                ),
             )
     }
 }
