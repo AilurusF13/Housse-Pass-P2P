@@ -8,25 +8,21 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "groups",
     indices = [
-        Index(value = ["created_at"], orders = [Index.Order.ASC])
-    ]
+        Index(value = ["created_at"], orders = [Index.Order.ASC]),
+    ],
 )
 data class Group(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "group_id")
     val groupId: Int = 0,
-
     @ColumnInfo(name = "group_name")
     val name: String,
-
     @ColumnInfo(name = "group_description")
     val description: String,
-
     @ColumnInfo(name = "group_passphrase")
     val passphrase: ByteArray,
-
-    @ColumnInfo(name="created_at")
-    val timestamp: Long
+    @ColumnInfo(name = "created_at")
+    val timestamp: Long = System.currentTimeMillis(),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -52,7 +48,7 @@ data class Group(
  * Projection to use and display all Groups without loading the passphrase in memory for security purposes
  */
 data class GroupSummary(
-    @ColumnInfo(name = "group_id")          val groupId: Int,
-    @ColumnInfo(name = "group_name")        val name: String,
-    @ColumnInfo(name = "group_description") val description: String
+    @ColumnInfo(name = "group_id") val groupId: Int,
+    @ColumnInfo(name = "group_name") val name: String,
+    @ColumnInfo(name = "group_description") val description: String,
 )

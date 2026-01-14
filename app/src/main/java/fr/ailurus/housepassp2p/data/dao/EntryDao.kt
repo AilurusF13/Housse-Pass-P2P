@@ -13,12 +13,15 @@ interface EntryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entry: Entry)
 
-    @Query("SELECT id, site_name, user_login, group_id FROM 'entries' ORDER BY created_at")
+    @Insert
+    suspend fun insertEntries(entries: List<Entry>)
+
+    @Query("SELECT id, site_name, user_login, group_id FROM entries ORDER BY created_at")
     fun getEntries(): Flow<List<EntrySummary>>
 
-    @Query("SELECT password_blob FROM 'entries' WHERE id = :id")
-    suspend fun getPassword(id: Int): CharArray?
+    @Query("SELECT password_blob FROM entries WHERE id = :id")
+    suspend fun getPassword(id: Int): ByteArray?
 
-    @Query("DELETE FROM 'entries' WHERE id = :id")
+    @Query("DELETE FROM entries WHERE id = :id")
     suspend fun deleteById(id: Int)
 }

@@ -13,32 +13,27 @@ import androidx.room.PrimaryKey
             entity = Group::class,
             parentColumns = ["groupId"],
             childColumns = ["groupId"],
-            onDelete = ForeignKey.CASCADE
-        )
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
     indices = [
-        Index(value = ["created_at"], orders=[Index.Order.DESC])
-    ]
+        Index(value = ["created_at"], orders = [Index.Order.DESC]),
+    ],
 )
 data class Entry(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int = 0,
-
     @ColumnInfo(name = "site_name")
     val site: String,
-
     @ColumnInfo(name = "user_login")
     val login: String,
-
     @ColumnInfo(name = "password_blob")
     val password: ByteArray,
-
     @ColumnInfo(name = "group_id")
     val groupId: Int,
-
     @ColumnInfo(name = "created_at")
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -71,9 +66,9 @@ data class Entry(
  * Projection to use and display entries without loading the password in memory for security purposes
  */
 data class EntrySummary(
-    @ColumnInfo(name="id")          val id: Int,
-    @ColumnInfo(name="site_name")   val site: String,
-    @ColumnInfo(name="user_login")  val login: String,
-    @ColumnInfo(name="group_id")    val groupId: Int,
-    @ColumnInfo(name="created_at")  val timestamp: Long
+    @ColumnInfo(name = "id") val id: Int,
+    @ColumnInfo(name = "site_name") val site: String,
+    @ColumnInfo(name = "user_login") val login: String,
+    @ColumnInfo(name = "group_id") val groupId: Int,
+    @ColumnInfo(name = "created_at") val timestamp: Long,
 )
