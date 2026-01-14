@@ -1,6 +1,6 @@
 [versions]
 agp = "8.13.2"
-kotlin = "2.0.21"
+kotlin = "2.3.0"
 coreKtx = "1.17.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
@@ -12,8 +12,8 @@ uiTextGoogleFonts = "1.10.0"
 ktlint = "14.0.1"
 roomCommonJvm = "2.8.4"
 roomKtx = "2.8.4"
-ksp = "2.0.21-1.0.25" # Doit correspondre à ta version de Kotlin (2.0.21)
-room = "2.6.1"        # Version stable recommandée
+ksp = "2.3.4"
+room = "2.8.4"
 sqlcipher = "4.5.4"
 
 [libraries]
