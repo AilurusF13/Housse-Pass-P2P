@@ -1,6 +1,7 @@
 package fr.ailurus.housepassp2p.data
 
 import android.content.Context
+import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.room.Database
 import androidx.room.Room

@@ -17,6 +17,7 @@ import androidx.room.PrimaryKey
         ),
     ],
     indices = [
+        Index(value = ["group_id"], orders = [Index.Order.DESC]),
         Index(value = ["created_at"], orders = [Index.Order.DESC]),
     ],
 )
