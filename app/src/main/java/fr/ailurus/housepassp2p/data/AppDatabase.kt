@@ -13,7 +13,8 @@ import fr.ailurus.housepassp2p.data.entities.Group
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.sqlcipher.database.SupportFactory
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
+import net.zetetic.database.sqlcipher.SQLiteDatabase
 
 @Database(
     entities = [
@@ -40,6 +41,13 @@ abstract class AppDatabase : RoomDatabase() {
             }
 
         private fun buildDatabase(context: Context): AppDatabase {
+
+            try {
+                System.loadLibrary("sqlcipher")
+            } catch (e:  UnsatisfiedLinkError){
+                Log.e("SQLCIPHER_INIT", "Failed to load library : ${e.message}")
+                throw RuntimeException("Critical error : library not found", e)
+            }
             // Configuration de la sécurité
             val factory = createHelperFactory()
 
@@ -53,10 +61,10 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
         }
 
-        private fun createHelperFactory(): SupportFactory {
+        private fun createHelperFactory(): SupportOpenHelperFactory {
             // TODO: Implement keystore here later
             val passphrase = "DEFAULT_PASSPHRASE".toByteArray()
-            return SupportFactory(passphrase)
+            return SupportOpenHelperFactory(passphrase)
         }
 
         private class DatabaseCallback(
