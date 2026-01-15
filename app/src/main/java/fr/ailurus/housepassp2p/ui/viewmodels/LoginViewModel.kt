@@ -71,12 +71,15 @@ class LoginViewModel :
         }
     }
 
-    val loginViewModelFactory =
-        viewModelFactory {
-            initializer {
-                LoginViewModel()
+
+    companion object {
+        val loginViewModelFactory =
+            viewModelFactory {
+                initializer {
+                    LoginViewModel()
+                }
             }
-        }
+    }
 }
 
 private const val WRONG_CODE_TEXT = "Retype your code"
