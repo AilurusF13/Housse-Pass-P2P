@@ -11,12 +11,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import fr.ailurus.housepassp2p.ui.components.main.EditEntryDialog
-import fr.ailurus.housepassp2p.ui.components.main.EntryListDisplay
-import fr.ailurus.housepassp2p.ui.components.main.FilterChipsRow
-import fr.ailurus.housepassp2p.ui.components.main.SearchRow
-import fr.ailurus.housepassp2p.ui.components.main.VaultTopBar
-import fr.ailurus.housepassp2p.ui.components.main.CreateEntryFab
+import fr.ailurus.housepassp2p.ui.components.vault.EditEntryDialog
+import fr.ailurus.housepassp2p.ui.components.vault.EntryListDisplay
+import fr.ailurus.housepassp2p.ui.components.vault.FilterChipsRow
+import fr.ailurus.housepassp2p.ui.components.vault.SearchRow
+import fr.ailurus.housepassp2p.ui.components.vault.VaultTopBar
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.viewmodels.VaultViewModel
 

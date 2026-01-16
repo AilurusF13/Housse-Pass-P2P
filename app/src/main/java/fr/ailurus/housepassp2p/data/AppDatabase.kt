@@ -7,6 +7,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import fr.ailurus.housepassp2p.R
 import fr.ailurus.housepassp2p.data.dao.EntryDao
 import fr.ailurus.housepassp2p.data.dao.GroupDao
 import fr.ailurus.housepassp2p.data.entities.Entry
@@ -55,8 +56,10 @@ abstract class AppDatabase : RoomDatabase() {
             return Room
                 .databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
-                    "house-pass-db",
+                    klass = AppDatabase::class.java,
+                    name = context.getString(R.string.database_name),
+                )
+                .openHelperFactory(factory,
                 ).openHelperFactory(factory)
                 .addCallback(DatabaseCallback(context))
                 .build()

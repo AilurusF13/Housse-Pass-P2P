@@ -1,4 +1,4 @@
-package fr.ailurus.housepassp2p.ui.components.main
+package fr.ailurus.housepassp2p.ui.components.vault
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">House Pass P2P</string>
+    <string name="database_name">house-pass-db</string>
 </resources>

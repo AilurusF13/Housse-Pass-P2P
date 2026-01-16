@@ -35,6 +35,7 @@ import fr.ailurus.housepassp2p.ui.viewmodels.LoginViewModel
 fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = viewModel(factory = LoginViewModel.loginViewModelFactory),
+    onAuthSuccess : () -> Unit
 ) {
     val context = LocalContext.current
     val shakeOffset = remember { Animatable(0f) }
@@ -105,6 +106,6 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     HousePassP2PTheme {
-        LoginScreen(viewModel = LoginViewModel())
+        LoginScreen(onAuthSuccess = {})
     }
 }

@@ -33,6 +33,7 @@ import fr.ailurus.housepassp2p.ui.viewmodels.SetupViewModel
 fun StartupScreen(
     modifier: Modifier = Modifier,
     viewModel: SetupViewModel = viewModel(factory = SetupViewModel.setupViewModelFactory),
+    onAuthSuccess : () -> Unit
 ) {
     val context = LocalContext.current
     val shakeOffset = remember { Animatable(0f) }
@@ -106,6 +107,6 @@ fun StartupScreen(
 @Composable
 fun StartupScreenPreview() {
     HousePassP2PTheme {
-        StartupScreen(viewModel = SetupViewModel(), modifier = Modifier)
+        StartupScreen(onAuthSuccess = {})
     }
 }

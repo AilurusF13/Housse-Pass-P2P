@@ -1,10 +1,9 @@
-package fr.ailurus.housepassp2p.ui.components.main
+package fr.ailurus.housepassp2p.ui.components.vault
 
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import fr.ailurus.housepassp2p.HousePassP2PApp
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 
 @Composable
