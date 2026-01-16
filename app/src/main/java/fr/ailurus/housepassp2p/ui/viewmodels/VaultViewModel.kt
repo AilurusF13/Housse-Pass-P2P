@@ -28,7 +28,7 @@ class VaultViewModel: ViewModel() {
         val vaultViewModelFactory =
             viewModelFactory {
                 initializer {
-                    LoginViewModel()
+                    VaultViewModel()
                 }
             }
     }

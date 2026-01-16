@@ -94,6 +94,7 @@ fun StartupScreen(
                         onClick = {
                             viewModel.onConfirm()
                             Toast.makeText(context, "Setting up database", Toast.LENGTH_LONG).show()
+                            onAuthSuccess()
                         },
                         enabled = viewModel.isButtonEnabled,
                     )

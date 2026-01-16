@@ -16,13 +16,10 @@ class LoginViewModel :
     ) {
     var pinCode by mutableStateOf("")
         private set
-
     var isButtonEnabled by mutableStateOf(false)
         private set
     var isErrorState by mutableStateOf(false)
         private set
-
-    val nullSupportText = ""
     var supportingText: String by mutableStateOf(INDICATION_CODE_TEXT)
         private set
     var isErrorLimitReached by mutableStateOf(false)
