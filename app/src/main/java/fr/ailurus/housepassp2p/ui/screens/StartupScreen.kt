@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import fr.ailurus.housepassp2p.AppDimensions
 import fr.ailurus.housepassp2p.Constants
 import fr.ailurus.housepassp2p.ui.components.auth.AuthButton
@@ -31,7 +32,7 @@ import fr.ailurus.housepassp2p.ui.viewmodels.SetupViewModel
 @Composable
 fun StartupScreen(
     modifier: Modifier = Modifier,
-    viewModel: SetupViewModel,
+    viewModel: SetupViewModel = viewModel(factory = SetupViewModel.setupViewModelFactory),
 ) {
     val context = LocalContext.current
     val shakeOffset = remember { Animatable(0f) }

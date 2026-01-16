@@ -25,7 +25,7 @@ class VaultViewModel: ViewModel() {
     fun onSaveEntry() {}
 
     companion object {
-        val loginViewModelFactory =
+        val vaultViewModelFactory =
             viewModelFactory {
                 initializer {
                     LoginViewModel()

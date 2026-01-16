@@ -10,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import fr.ailurus.housepassp2p.ui.components.main.EditEntryDialog
 import fr.ailurus.housepassp2p.ui.components.main.EntryListDisplay
 import fr.ailurus.housepassp2p.ui.components.main.FilterChipsRow
@@ -22,7 +23,7 @@ import fr.ailurus.housepassp2p.ui.viewmodels.VaultViewModel
 @Composable
 fun VaultScreen (
     modifier: Modifier = Modifier,
-    viewModel: VaultViewModel
+    viewModel: VaultViewModel = viewModel(factory = VaultViewModel.vaultViewModelFactory),
 ) {
     // 1. Collecte des états
     val uiState by viewModel.uiState.collectAsState()
