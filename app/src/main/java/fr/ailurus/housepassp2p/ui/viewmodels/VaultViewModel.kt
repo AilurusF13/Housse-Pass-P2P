@@ -5,13 +5,9 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import fr.ailurus.housepassp2p.data.entities.EntrySummary
 import fr.ailurus.housepassp2p.data.entities.GroupSummary
+import fr.ailurus.housepassp2p.data.entities.PasswordUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.collections.emptyList
-
-data class PasswordUiState(
-    val isEditorOpen: Boolean = false,
-    val selectedGroup: GroupSummary? = null
-)
 
 class VaultViewModel: ViewModel() {
 
