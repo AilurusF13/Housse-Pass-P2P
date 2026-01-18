@@ -1,7 +1,6 @@
 package fr.ailurus.housepassp2p.data
 
 import android.content.Context
-import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
@@ -16,7 +15,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
-import net.zetetic.database.sqlcipher.SQLiteDatabase
 
 @Database(
     entities = [
@@ -35,14 +33,15 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase =
-            instance ?: synchronized(this) {
-                val db = buildDatabase(context)
-                instance = db
-                db
-            }
+        fun getDatabase(context: Context, key: ByteArray): AppDatabase {
+            instance?.let { return it }
 
-        private fun buildDatabase(context: Context): AppDatabase {
+            return synchronized(this){
+                instance ?: buildDatabase(context, key).also { instance = it }
+            }
+        }
+
+        private fun buildDatabase(context: Context, key: ByteArray): AppDatabase {
 
             try {
                 System.loadLibrary("sqlcipher")
@@ -51,7 +50,7 @@ abstract class AppDatabase : RoomDatabase() {
                 throw RuntimeException("Critical error : library not found", e)
             }
             // Configuration de la sécurité
-            val factory = createHelperFactory()
+            val factory = createHelperFactory(key)
 
             return Room
                 .databaseBuilder(
@@ -59,25 +58,23 @@ abstract class AppDatabase : RoomDatabase() {
                     klass = AppDatabase::class.java,
                     name = context.getString(R.string.database_name),
                 )
-                .openHelperFactory(factory,
-                ).openHelperFactory(factory)
-                .addCallback(DatabaseCallback(context))
+                .openHelperFactory(factory)
+                .addCallback(DatabaseCallback(context, key))
                 .build()
         }
 
-        private fun createHelperFactory(): SupportOpenHelperFactory {
-            // TODO: Implement keystore here later
-            val passphrase = "DEFAULT_PASSPHRASE".toByteArray()
-            return SupportOpenHelperFactory(passphrase)
+        private fun createHelperFactory(key: ByteArray): SupportOpenHelperFactory {
+            return SupportOpenHelperFactory(key)
         }
 
         private class DatabaseCallback(
             private val context: Context,
+            private val key: ByteArray,
         ) : Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 CoroutineScope(Dispatchers.IO).launch {
-                    val db = getDatabase(context)
+                    val db = getDatabase(context, key)
                     prepopulate(db)
                 }
             }

@@ -15,14 +15,14 @@ interface RepositoryManager {
      * This should be called during the initial setup.
      * @param pin The master key to save.
      */
-    suspend fun setupVault(pin: CharArray)
+    suspend fun setupVault(pin: ByteArray)
 
     /**
      * Checks if the provided master key is correct.
      * @param pin The master key to check.
      * @return True if the master key is correct, false otherwise.
      */
-    suspend fun checkVaultKey(pin: CharArray): Boolean
+    suspend fun checkVaultKey(pin:  ByteArray): Boolean
 
     // GROUP OPERATIONS
 
