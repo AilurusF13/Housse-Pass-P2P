@@ -26,3 +26,8 @@ interface GroupDao {
     @Query("DELETE FROM `groups` WHERE group_id = :groupId")
     suspend fun deleteById(groupId: Int)
 }
+
+/**
+ * Here it was decided to separate the responsibilities of the insert and the update unlike in the entry dao
+ * Unlike the entries, we cannot afford a copy and need a closer monitoring of the operation.
+ */
