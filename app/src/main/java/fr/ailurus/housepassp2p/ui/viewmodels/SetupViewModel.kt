@@ -73,16 +73,6 @@ class SetupViewModel(
             confirmSupportText = INDICATION_CONFIRM_TEXT
         }
     }
-
-    companion object {
-        fun setupViewModelFactory(repositoryManager: RepositoryManager){
-            viewModelFactory {
-                initializer {
-                    SetupViewModel(repositoryManager = repositoryManager)
-                }
-            }
-        }
-    }
 }
 
 private const val INDICATION_CODE_TEXT = "Enter your PIN code"

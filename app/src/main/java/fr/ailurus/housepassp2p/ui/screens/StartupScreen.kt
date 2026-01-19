@@ -28,11 +28,12 @@ import fr.ailurus.housepassp2p.ui.components.auth.AuthField
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.theme.utils.shake
 import fr.ailurus.housepassp2p.ui.viewmodels.SetupViewModel
+import fr.ailurus.housepassp2p.ui.viewmodels.AppViewModelProvider
 
 @Composable
 fun StartupScreen(
     modifier: Modifier = Modifier,
-    viewModel: SetupViewModel = viewModel(factory = SetupViewModel.setupViewModelFactory),
+    viewModel: SetupViewModel = viewModel(factory = AppViewModelProvider.Factory),
     onAuthSuccess : () -> Unit
 ) {
     val context = LocalContext.current

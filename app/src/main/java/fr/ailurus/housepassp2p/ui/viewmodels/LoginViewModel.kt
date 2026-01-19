@@ -68,16 +68,6 @@ class LoginViewModel(
             }
         }
     }
-
-    companion object {
-        fun loginViewModelFactory(repositoryManager: RepositoryManager){
-            viewModelFactory {
-                initializer {
-                    LoginViewModel(repositoryManager = repositoryManager)
-                }
-            }
-        }
-    }
 }
 
 private const val WRONG_CODE_TEXT = "Retype your code"

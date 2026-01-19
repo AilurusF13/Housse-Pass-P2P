@@ -26,14 +26,4 @@ class VaultViewModel(
     fun onOpenEditor() {}
     fun onCloseEditor() {}
     fun onSaveEntry() {}
-
-    companion object {
-        fun vaultViewModelFactory(repositoryManager: RepositoryManager){
-            viewModelFactory {
-                initializer {
-                    VaultViewModel(repositoryManager = repositoryManager)
-                }
-            }
-        }
-    }
 }

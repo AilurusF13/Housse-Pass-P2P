@@ -18,11 +18,12 @@ import fr.ailurus.housepassp2p.ui.components.vault.SearchRow
 import fr.ailurus.housepassp2p.ui.components.vault.VaultTopBar
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 import fr.ailurus.housepassp2p.ui.viewmodels.VaultViewModel
+import fr.ailurus.housepassp2p.ui.viewmodels.AppViewModelProvider
 
 @Composable
 fun VaultScreen (
     modifier: Modifier = Modifier,
-    viewModel: VaultViewModel = viewModel(factory = VaultViewModel.vaultViewModelFactory),
+    viewModel: VaultViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
     // 1. Collecte des états
     val uiState by viewModel.uiState.collectAsState()
@@ -81,6 +82,6 @@ fun VaultScreen (
 @Composable
 fun MainScreenPreview(){
     HousePassP2PTheme {
-        VaultScreen(viewModel = VaultViewModel())
+        VaultScreen()
     }
 }
