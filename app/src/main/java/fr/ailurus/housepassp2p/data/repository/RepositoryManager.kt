@@ -18,11 +18,11 @@ interface RepositoryManager {
     suspend fun setupVault(pin: ByteArray)
 
     /**
-     * Checks if the provided master key is correct.
+     * Checks if the provided master key is correct and open the vault for use
      * @param pin The master key to check.
      * @return True if the master key is correct, false otherwise.
      */
-    suspend fun checkVaultKey(pin:  ByteArray): Boolean
+    suspend fun openVault(pin:  ByteArray): Boolean
 
     // GROUP OPERATIONS
 

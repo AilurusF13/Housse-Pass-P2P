@@ -22,7 +22,7 @@ class RepositoryManagerImpl(
         db = AppDatabase.getDatabase(context, dek)
     }
 
-    override suspend fun checkVaultKey(pin: ByteArray): Boolean {
+    override suspend fun openVault(pin: ByteArray): Boolean {
         return try {
             val dek = keystoreManager.getMasterKey(pin)
             db = AppDatabase.getDatabase(context, dek)
