@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import fr.ailurus.housepassp2p.ui.HousePassP2PApp
+import fr.ailurus.housepassp2p.ui.MainApp
 import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             val dbExists = applicationContext.getDatabasePath(dbName).exists()
 
             HousePassP2PTheme {
-                HousePassP2PApp(hasExistingDb = dbExists)
+                MainApp(hasExistingDb = dbExists)
             }
         }
     }
@@ -29,6 +29,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     HousePassP2PTheme {
-        HousePassP2PApp(true)
+        MainApp(true)
     }
 }

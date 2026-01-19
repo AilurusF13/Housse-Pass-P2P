@@ -17,7 +17,7 @@ import fr.ailurus.housepassp2p.ui.screens.LoginScreen
 import fr.ailurus.housepassp2p.ui.screens.StartupScreen
 
 @Composable
-fun HousePassP2PApp(hasExistingDb: Boolean) {
+fun MainApp(hasExistingDb: Boolean) {
 
     var isAppUnlocked by rememberSaveable { mutableStateOf(false) }
 
