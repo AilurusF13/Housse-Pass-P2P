@@ -6,10 +6,13 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import fr.ailurus.housepassp2p.data.entities.EntrySummary
 import fr.ailurus.housepassp2p.data.entities.GroupSummary
 import fr.ailurus.housepassp2p.data.entities.PasswordUiState
+import fr.ailurus.housepassp2p.data.repository.RepositoryManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.collections.emptyList
 
-class VaultViewModel: ViewModel() {
+class VaultViewModel(
+    repositoryManager: RepositoryManager
+): ViewModel() {
 
     // code here
     val uiState = MutableStateFlow(PasswordUiState())
@@ -25,11 +28,12 @@ class VaultViewModel: ViewModel() {
     fun onSaveEntry() {}
 
     companion object {
-        val vaultViewModelFactory =
+        fun vaultViewModelFactory(repositoryManager: RepositoryManager){
             viewModelFactory {
                 initializer {
-                    VaultViewModel()
+                    VaultViewModel(repositoryManager = repositoryManager)
                 }
             }
+        }
     }
 }

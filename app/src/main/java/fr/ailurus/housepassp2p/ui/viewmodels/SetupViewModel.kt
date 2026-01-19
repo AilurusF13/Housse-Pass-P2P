@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import fr.ailurus.housepassp2p.Constants
+import fr.ailurus.housepassp2p.data.repository.RepositoryManager
 
-class SetupViewModel : ViewModel() {
+class SetupViewModel(
+    repositoryManager: RepositoryManager
+) : ViewModel() {
     var pinCode by mutableStateOf("")
         private set
 
@@ -72,12 +75,13 @@ class SetupViewModel : ViewModel() {
     }
 
     companion object {
-        val setupViewModelFactory =
+        fun setupViewModelFactory(repositoryManager: RepositoryManager){
             viewModelFactory {
                 initializer {
-                    SetupViewModel()
+                    SetupViewModel(repositoryManager = repositoryManager)
                 }
             }
+        }
     }
 }
 

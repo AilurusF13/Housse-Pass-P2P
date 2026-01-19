@@ -8,12 +8,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import fr.ailurus.housepassp2p.Constants
+import fr.ailurus.housepassp2p.data.repository.RepositoryManager
 import kotlinx.coroutines.launch
 
-class LoginViewModel :
-    ViewModel(
-        // Nothing yet
-    ) {
+class LoginViewModel(
+    val repositoryManager: RepositoryManager
+) :
+    ViewModel() {
     var pinCode by mutableStateOf("")
         private set
     var isButtonEnabled by mutableStateOf(false)
@@ -46,10 +47,10 @@ class LoginViewModel :
 
         viewModelScope.launch {
             try {
-                // TODO replace later the equal obviously
-                val realCode = CharArray(Constants.CODE_CHAR_COUNT) { '1' }
-
-                if (realCode.contentEquals(codeToCheck)) {
+                val res = repositoryManager.openVault(pinCode.toByteArray())
+                // if succeeds, the vault is opened
+                
+                if (res) {
                     errorCount = 0
                     isConfirmationSuccessful = true
                 } else {
@@ -68,14 +69,14 @@ class LoginViewModel :
         }
     }
 
-
     companion object {
-        val loginViewModelFactory =
+        fun loginViewModelFactory(repositoryManager: RepositoryManager){
             viewModelFactory {
                 initializer {
-                    LoginViewModel()
+                    LoginViewModel(repositoryManager = repositoryManager)
                 }
             }
+        }
     }
 }
 
