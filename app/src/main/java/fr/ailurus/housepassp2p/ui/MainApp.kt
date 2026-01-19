@@ -26,11 +26,17 @@ fun MainApp(hasExistingDb: Boolean) {
     } else {
         if (hasExistingDb) {
             LoginScreen(
-                onAuthSuccess = { isAppUnlocked = true }
+                onAuthSuccess = {
+                    @Suppress("AssignedValueIsNeverRead")
+                    isAppUnlocked = true
+                }
             )
         } else {
             StartupScreen(
-                onAuthSuccess = { isAppUnlocked = true }
+                onAuthSuccess = {
+                    @Suppress("AssignedValueIsNeverRead")
+                    isAppUnlocked = true
+                }
             )
         }
     }

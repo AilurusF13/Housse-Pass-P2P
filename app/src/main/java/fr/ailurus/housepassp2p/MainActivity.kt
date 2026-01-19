@@ -1,6 +1,7 @@
 package fr.ailurus.housepassp2p
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge

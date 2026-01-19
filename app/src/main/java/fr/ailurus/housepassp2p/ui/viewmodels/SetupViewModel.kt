@@ -4,13 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.lifecycle.viewModelScope
 import fr.ailurus.housepassp2p.Constants
 import fr.ailurus.housepassp2p.data.repository.RepositoryManager
+import kotlinx.coroutines.launch
 
 class SetupViewModel(
-    repositoryManager: RepositoryManager
+    private val repositoryManager: RepositoryManager
 ) : ViewModel() {
     var pinCode by mutableStateOf("")
         private set
@@ -47,8 +47,9 @@ class SetupViewModel(
     }
 
     fun onConfirm() {
-        pinCode = ""
-        confirmCode = ""
+        viewModelScope.launch {
+            repositoryManager.setupVault(pinCode.toByteArray())
+        }
     }
 
     /**
@@ -78,3 +79,7 @@ class SetupViewModel(
 private const val INDICATION_CODE_TEXT = "Enter your PIN code"
 private const val INDICATION_CONFIRM_TEXT = "Confirm your PIN code"
 private const val ERROR_MATCH_TEXT = "Codes must match"
+
+/**
+ * I acknowledge the confirm field can be ambiguous : there is the Confirmation Field and the action applied by the button "confirm" too
+ */
