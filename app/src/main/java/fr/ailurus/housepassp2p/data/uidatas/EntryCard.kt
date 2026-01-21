@@ -6,5 +6,5 @@ data class EntryCard(
     val id: Int,
     val site: String,
     val login: String,
-    val group: GroupSummary? // Takes a little bit more space for each entry card but fasten the processus
+    val group: GroupSummary // Takes a little bit more space for each entry card but fasten the processus
 )

@@ -31,6 +31,10 @@ class VaultViewModel(
         allEntries, allGroups, searchQuery, selectedGroup, isEditorOpen ->
 
         val groupMap = allGroups.associateBy { it.groupId }
+        val defaultGroup = allGroups.firstOrNull() ?: GroupSummary(
+            groupId = -1,
+            name = "Unknown"
+        )
 
         val filteredCards = allEntries
             .filter { entry ->
@@ -43,7 +47,7 @@ class VaultViewModel(
                     id = entry.id,
                     site = entry.site,
                     login = entry.login,
-                    group = groupMap[entry.groupId]
+                    group = groupMap[entry.groupId] ?: defaultGroup
                 )
             }
         MainScreenState(
@@ -51,6 +55,7 @@ class VaultViewModel(
             groups = allGroups,
             searchQuery = searchQuery,
             selectedGroup = selectedGroup,
+            isEditorOpen = isEditorOpen
         )
     }.stateIn(
         scope = viewModelScope,
@@ -69,9 +74,16 @@ class VaultViewModel(
             null else group
     }
 
-    fun onOpenEditor(){
-        _isEditorOpen.value = true
+    val editorState = EditorStateView(viewModelScope, repositoryManager, uiState.value.groups, _isEditorOpen)
+
+    fun onAddAction(){
+        editorState.initialize(null)
     }
+
+    fun onEditAction(entry: EntryCard){
+        editorState.initialize(entry)
+    }
+
     fun onCloseEditor(){
         _isEditorOpen.value = false
     }

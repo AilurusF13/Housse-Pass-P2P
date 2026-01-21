@@ -18,7 +18,7 @@ data class Group(
     @ColumnInfo(name = "group_name")
     val name: String,
     @ColumnInfo(name = "group_description")
-    val description: String,
+    val description: String = "",
     @ColumnInfo(name = "group_passphrase")
     val passphrase: ByteArray,
     @ColumnInfo(name = "created_at")
@@ -50,5 +50,5 @@ data class Group(
 data class GroupSummary(
     @ColumnInfo(name = "group_id") val groupId: Int,
     @ColumnInfo(name = "group_name") val name: String,
-    @ColumnInfo(name = "group_description") val description: String,
+    @ColumnInfo(name = "group_description") val description: String = "",
 )
