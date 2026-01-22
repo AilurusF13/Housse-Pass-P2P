@@ -137,14 +137,14 @@ abstract class AppDatabase : RoomDatabase() {
             listOf(
                 // Group 1: SELF_GROUP (Personnel)
                 Entry(
-                    site = "Banque Populaire",
+                    site = "banquepopulaire.fr",
                     login = "ailurus_88",
                     groupId = 1,
                     password = "pwd".toByteArray(),
                     timestamp = 1705200000000,
                 ),
                 Entry(
-                    site = "Impôts Gouv",
+                    site = "impot.gouv.fr",
                     login = "ailurus_fr",
                     groupId = 1,
                     password = "pwd".toByteArray(),
@@ -158,7 +158,7 @@ abstract class AppDatabase : RoomDatabase() {
                     timestamp = 1705200000002,
                 ),
                 Entry(
-                    site = "Assurance Maladie",
+                    site = "amelie.fr",
                     login = "199010203040",
                     groupId = 1,
                     password = "pwd".toByteArray(),
@@ -166,14 +166,14 @@ abstract class AppDatabase : RoomDatabase() {
                 ),
                 // Group 2: MOCK_GROUP_1 (Projet L3)
                 Entry(
-                    site = "GitHub",
+                    site = "github.com",
                     login = "ailurus-dev",
                     groupId = 2,
                     password = "pwd".toByteArray(),
                     timestamp = 1705200000004,
                 ),
                 Entry(
-                    site = "GitLab (Université)",
+                    site = "git.unistra.fr",
                     login = "etu_math_info",
                     groupId = 2,
                     password = "pwd".toByteArray(),
@@ -195,14 +195,14 @@ abstract class AppDatabase : RoomDatabase() {
                 ),
                 // Group 3: MOCK_GROUP_2 (Famille)
                 Entry(
-                    site = "Netflix",
+                    site = "netflix.com",
                     login = "famille@orange.fr",
                     groupId = 3,
                     password = "pwd".toByteArray(),
                     timestamp = 1705200000008,
                 ),
                 Entry(
-                    site = "Disney+",
+                    site = "disneyplus.com",
                     login = "famille@orange.fr",
                     groupId = 3,
                     password = "pwd".toByteArray(),
@@ -216,7 +216,7 @@ abstract class AppDatabase : RoomDatabase() {
                     timestamp = 1705200000010,
                 ),
                 Entry(
-                    site = "Amazon Prime",
+                    site = "amazon.fr",
                     login = "maman_account",
                     groupId = 3,
                     password = "pwd".toByteArray(),
@@ -224,14 +224,14 @@ abstract class AppDatabase : RoomDatabase() {
                 ),
                 // Group 4: MOCK_GROUP_3 (Gaming)
                 Entry(
-                    site = "Steam",
+                    site = "steam.com",
                     login = "GamerZ_99",
                     groupId = 4,
                     password = "pwd".toByteArray(),
                     timestamp = 1705200000012,
                 ),
                 Entry(
-                    site = "Epic Games",
+                    site = "epicgames.com",
                     login = "ailurus_play",
                     groupId = 4,
                     password = "pwd".toByteArray(),
@@ -245,7 +245,7 @@ abstract class AppDatabase : RoomDatabase() {
                     timestamp = 1705200000014,
                 ),
                 Entry(
-                    site = "Discord",
+                    site = "Discord.gg",
                     login = "ailurus#1337",
                     groupId = 4,
                     password = "pwd".toByteArray(),

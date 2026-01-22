@@ -64,7 +64,7 @@ fun EntryListDisplay(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = entry.site[0].toString(),
+                            text = entry.site[0].toString().uppercase(),
                             style = MaterialTheme.typography.titleLarge
                         )
                     }
@@ -77,7 +77,7 @@ fun EntryListDisplay(
                     ) {
                         // SITE NAME
                         Text(
-                            text = entry.site,
+                            text = formatSiteName(entry.site),
                             style = MaterialTheme.typography.bodyLarge,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
@@ -87,7 +87,7 @@ fun EntryListDisplay(
                         Text(
                             text = entry.login,
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.typography.bodyMedium.color.copy(alpha = 0.7f),
+//                            color = MaterialTheme.typography.bodyMedium.color.copy(alpha = 0.7f),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -98,7 +98,7 @@ fun EntryListDisplay(
                         modifier = Modifier.weight(0.1f),
                         contentAlignment = Alignment.Center
                     ) {
-                        IconButton(onClick = { onLoginCopy }) {
+                        IconButton(onClick = { onLoginCopy(entry) }) {
                             Icon(
                                 imageVector = Icons.Default.Person,
                                 contentDescription = "Copy",
@@ -111,7 +111,7 @@ fun EntryListDisplay(
                         modifier = Modifier.weight(0.1f),
                         contentAlignment = Alignment.Center
                     ) {
-                        IconButton(onClick = { onPasswordCopy }) {
+                        IconButton(onClick = { onPasswordCopy(entry) }) {
                             Icon(
                                 imageVector = Icons.Default.Key,
                                 contentDescription = "Copy",
@@ -123,4 +123,14 @@ fun EntryListDisplay(
             }
         }
     }
+}
+
+fun formatSiteName(rawSite: String): String {
+    if (rawSite.any { it.isDigit() }) return rawSite
+
+    return rawSite
+        .removePrefix("https://")
+        .removePrefix("http://")
+        .removePrefix("www.")
+        .replaceFirstChar { it.uppercase() }
 }
