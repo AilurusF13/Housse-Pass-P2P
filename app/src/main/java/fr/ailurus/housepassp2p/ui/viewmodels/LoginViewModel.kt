@@ -68,6 +68,12 @@ class LoginViewModel(
             }
         }
     }
+
+    fun resetVault(){
+        viewModelScope.launch {
+            repositoryManager.resetDatabase()
+        }
+    }
 }
 
 private const val WRONG_CODE_TEXT = "Retype your code"

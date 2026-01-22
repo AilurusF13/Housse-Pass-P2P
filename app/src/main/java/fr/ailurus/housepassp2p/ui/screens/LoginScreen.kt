@@ -35,7 +35,8 @@ import fr.ailurus.housepassp2p.ui.viewmodels.AppViewModelProvider
 fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    onAuthSuccess : () -> Unit
+    onAuthSuccess : () -> Unit,
+    onResetDb : () -> Unit = {}
 ) {
     val context = LocalContext.current
     val shakeOffset = remember { Animatable(0f) }
@@ -91,7 +92,9 @@ fun LoginScreen(
                                     Modifier
                                         .padding(top = AppDimensions.PaddingLarge)
                                         .clickable {
-                                            Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG).show() // TODO change
+                                            Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG).show()
+                                            viewModel.resetVault()
+                                            onResetDb()
                                         },
                                 text = "Erase vault and restore password",
                                 textDecoration = TextDecoration.Underline,

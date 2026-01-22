@@ -2,6 +2,7 @@ package fr.ailurus.housepassp2p.data.repository
 
 import android.content.Context
 import android.util.Log
+import fr.ailurus.housepassp2p.R
 import fr.ailurus.housepassp2p.security.keystore.KeystoreManager
 import fr.ailurus.housepassp2p.data.AppDatabase
 import fr.ailurus.housepassp2p.data.entities.Entry
@@ -34,6 +35,10 @@ class RepositoryManagerImpl(
         } finally {
             pin.fill(0)
         }
+    }
+
+    override suspend fun resetDatabase() {
+        context.deleteDatabase(context.getString(R.string.database_name))
     }
 
     override suspend fun createGroup(group: Group) {

@@ -24,6 +24,8 @@ interface RepositoryManager {
      */
     suspend fun openVault(pin:  ByteArray): Boolean
 
+    suspend fun resetDatabase()
+
     // GROUP OPERATIONS
 
     /**

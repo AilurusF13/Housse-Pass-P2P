@@ -16,25 +16,30 @@ import fr.ailurus.housepassp2p.ui.navigation.AppNavHost
 import fr.ailurus.housepassp2p.ui.screens.LoginScreen
 import fr.ailurus.housepassp2p.ui.screens.StartupScreen
 
+@Suppress("AssignedValueIsNeverRead")
 @Composable
 fun MainApp(hasExistingDb: Boolean) {
 
+    var dbExists by rememberSaveable { mutableStateOf(hasExistingDb) }
     var isAppUnlocked by rememberSaveable { mutableStateOf(false) }
 
-    if (isAppUnlocked) {
+    if (isAppUnlocked && dbExists) {
         MainAppContent()
     } else {
-        if (hasExistingDb) {
+        if (dbExists) {
             LoginScreen(
                 onAuthSuccess = {
-                    @Suppress("AssignedValueIsNeverRead")
                     isAppUnlocked = true
+                },
+                onResetDb = {
+                    dbExists = false
+                    isAppUnlocked = false
                 }
             )
         } else {
             StartupScreen(
                 onAuthSuccess = {
-                    @Suppress("AssignedValueIsNeverRead")
+                    dbExists = true
                     isAppUnlocked = true
                 }
             )
