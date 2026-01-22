@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,60 +49,62 @@ fun StartupScreen(
     var code by remember { mutableStateOf("") }
     var confirm by remember { mutableStateOf("") }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        AuthCard(
-            modifier = Modifier.offset(x = shakeOffset.value.dp),
-            content = {
-                Column(
-                    modifier =
-                        Modifier
-                            .padding(AppDimensions.PaddingExtraLarge),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    // Auth field normal
-                    AuthField(
-                        value = code,
-                        onValueChange = {
-                            code = if (it.length <= Constants.CODE_CHAR_COUNT) it else code
-                            viewModel.onCodeChange(it)
-                        },
-                        label = "PIN code",
-                        supportingText = { Text(viewModel.codeSupportText) },
-                        isError = false,
-                    )
+    Surface {
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            AuthCard(
+                modifier = Modifier.offset(x = shakeOffset.value.dp),
+                content = {
+                    Column(
+                        modifier =
+                            Modifier
+                                .padding(AppDimensions.PaddingExtraLarge),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        // Auth field normal
+                        AuthField(
+                            value = code,
+                            onValueChange = {
+                                code = if (it.length <= Constants.CODE_CHAR_COUNT) it else code
+                                viewModel.onCodeChange(it)
+                            },
+                            label = "PIN code",
+                            supportingText = { Text(viewModel.codeSupportText) },
+                            isError = false,
+                        )
 
-                    // Auth field confirmation
-                    AuthField(
-                        modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
-                        value = confirm,
-                        onValueChange = {
-                            confirm = if (it.length <= Constants.CODE_CHAR_COUNT) it else confirm
-                            viewModel.onConfirmChange(it)
-                        },
-                        label = "Confirm PIN code",
-                        supportingText = { Text(viewModel.confirmSupportText) },
-                        isError = viewModel.isErrorState,
-                    )
+                        // Auth field confirmation
+                        AuthField(
+                            modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
+                            value = confirm,
+                            onValueChange = {
+                                confirm = if (it.length <= Constants.CODE_CHAR_COUNT) it else confirm
+                                viewModel.onConfirmChange(it)
+                            },
+                            label = "Confirm PIN code",
+                            supportingText = { Text(viewModel.confirmSupportText) },
+                            isError = viewModel.isErrorState,
+                        )
 
-                    // Confirm Button
-                    AuthButton(
-                        modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
-                        text = "Create",
-                        onClick = {
-                            viewModel.onConfirm()
-                            Toast.makeText(context, "Setting up database", Toast.LENGTH_LONG).show()
-                            onAuthSuccess()
-                        },
-                        enabled = viewModel.isButtonEnabled,
-                    )
-                }
-            },
-        )
+                        // Confirm Button
+                        AuthButton(
+                            modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
+                            text = "Create",
+                            onClick = {
+                                viewModel.onConfirm()
+                                Toast.makeText(context, "Setting up database", Toast.LENGTH_LONG).show()
+                                onAuthSuccess()
+                            },
+                            enabled = viewModel.isButtonEnabled,
+                        )
+                    }
+                },
+            )
+        }
     }
 }
 

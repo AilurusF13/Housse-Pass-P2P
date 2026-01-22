@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -45,60 +46,63 @@ fun LoginScreen(
         }
     }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        AuthCard(
-            modifier = Modifier.offset(x = shakeOffset.value.dp),
-            content = {
-                Column(
-                    modifier =
-                        Modifier
-                            .padding(AppDimensions.PaddingExtraLarge),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    AuthField(
-                        value = viewModel.pinCode,
-                        onValueChange = {
-                            viewModel.onCodeChange(it)
-                        },
-                        label = "PIN code",
-                        supportingText = { Text(viewModel.supportingText) },
-                        isError = viewModel.isErrorState,
-                    )
-                    AuthButton(
-                        modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
-                        text = "Next",
-                        onClick = {
-                            viewModel.onConfirm()
-                            if (viewModel.isConfirmationSuccessful) {
-                                Toast.makeText(context, "Opening vault", Toast.LENGTH_SHORT).show()
-                                onAuthSuccess()
-                            }
-                        },
-                        enabled = viewModel.isButtonEnabled,
-                    )
+    Surface {
 
-                    if (viewModel.isErrorLimitReached) {
-                        Text(
-                            modifier =
-                                Modifier
-                                    .padding(top = AppDimensions.PaddingLarge)
-                                    .clickable {
-                                        Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG).show() // TODO change
-                                    },
-                            text = "Erase vault and restore password",
-                            textDecoration = TextDecoration.Underline,
-                            fontStyle = FontStyle.Italic,
-                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            AuthCard(
+                modifier = Modifier.offset(x = shakeOffset.value.dp),
+                content = {
+                    Column(
+                        modifier =
+                            Modifier
+                                .padding(AppDimensions.PaddingExtraLarge),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        AuthField(
+                            value = viewModel.pinCode,
+                            onValueChange = {
+                                viewModel.onCodeChange(it)
+                            },
+                            label = "PIN code",
+                            supportingText = { Text(viewModel.supportingText) },
+                            isError = viewModel.isErrorState,
                         )
+                        AuthButton(
+                            modifier = Modifier.padding(top = AppDimensions.PaddingExtraLarge),
+                            text = "Next",
+                            onClick = {
+                                viewModel.onConfirm()
+                                if (viewModel.isConfirmationSuccessful) {
+                                    Toast.makeText(context, "Opening vault", Toast.LENGTH_SHORT).show()
+                                    onAuthSuccess()
+                                }
+                            },
+                            enabled = viewModel.isButtonEnabled,
+                        )
+
+                        if (viewModel.isErrorLimitReached) {
+                            Text(
+                                modifier =
+                                    Modifier
+                                        .padding(top = AppDimensions.PaddingLarge)
+                                        .clickable {
+                                            Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG).show() // TODO change
+                                        },
+                                text = "Erase vault and restore password",
+                                textDecoration = TextDecoration.Underline,
+                                fontStyle = FontStyle.Italic,
+                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            )
+                        }
                     }
-                }
-            },
-        )
+                },
+            )
+        }
     }
 }
 
