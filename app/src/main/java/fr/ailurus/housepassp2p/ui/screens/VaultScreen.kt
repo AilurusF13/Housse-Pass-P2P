@@ -16,17 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
-import fr.ailurus.housepassp2p.ui.components.vault.EditEntryDialog
 import fr.ailurus.housepassp2p.ui.components.vault.EntryListDisplay
 import fr.ailurus.housepassp2p.ui.components.vault.FilterChipsRow
 import fr.ailurus.housepassp2p.ui.components.vault.SearchRow
-import fr.ailurus.housepassp2p.ui.components.vault.VaultTopBar
-import fr.ailurus.housepassp2p.ui.theme.HousePassP2PTheme
-import fr.ailurus.housepassp2p.ui.viewmodels.VaultViewModel
 import fr.ailurus.housepassp2p.ui.viewmodels.AppViewModelProvider
+import fr.ailurus.housepassp2p.ui.viewmodels.VaultViewModel
 
 @Composable
 fun VaultScreen (
@@ -39,7 +34,6 @@ fun VaultScreen (
 
     Scaffold(
         modifier = modifier,
-        topBar = { VaultTopBar() },
         floatingActionButton = {
             FloatingActionButton({ viewModel.onAddAction() }) {
                 Icon(Icons.Filled.Add, contentDescription = "Add entry")
@@ -74,6 +68,7 @@ fun VaultScreen (
                     onDismissRequest = { viewModel.onCloseEditor() }
                 )
             }
+            // TODO : separate the custom dialog function in a new file
 
         }
     }
