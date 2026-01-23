@@ -74,7 +74,8 @@ class VaultViewModel(
             null else group
     }
 
-    val editorState = EditorStateView(viewModelScope, repositoryManager, uiState.value.groups, _isEditorOpen)
+    val editorState = EditorStateView(viewModelScope, repositoryManager,
+        { uiState.value.groups }, _isEditorOpen)
 
     fun onAddAction(){
         editorState.initialize(null)

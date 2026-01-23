@@ -6,17 +6,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import fr.ailurus.housepassp2p.ui.components.vault.EditEntryDialog
 import fr.ailurus.housepassp2p.ui.components.vault.EntryListDisplay
 import fr.ailurus.housepassp2p.ui.components.vault.FilterChipsRow
 import fr.ailurus.housepassp2p.ui.components.vault.SearchRow
@@ -63,13 +63,11 @@ fun VaultScreen (
 
             // Mock entry dialog
             if (uiState.isEditorOpen){
-                AlertDialog(
-                    content = { Text(editorUiState.editorState?.site ?: "Error") },
-                    onDismissRequest = { viewModel.onCloseEditor() }
+                EditEntryDialog(
+                    editorStateView = editorUiState,
+                    onDismiss = { viewModel.onCloseEditor() },
                 )
             }
-            // TODO : separate the custom dialog function in a new file
-
         }
     }
 }

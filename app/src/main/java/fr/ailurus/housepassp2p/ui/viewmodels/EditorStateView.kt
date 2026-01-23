@@ -1,7 +1,6 @@
 package fr.ailurus.housepassp2p.ui.viewmodels
 
 import android.util.Log
-import android.util.Printer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,11 +27,13 @@ import kotlinx.coroutines.launch
 class EditorStateView(
     private val scope: CoroutineScope,
     private val repositoryManager: RepositoryManager,
-    private val groups: List<GroupSummary>,
+    val getGroups: () -> List<GroupSummary>,
     private val isEditorOpen: MutableStateFlow<Boolean>
 ) {
     var editorState  by mutableStateOf<EntryCard?>(null)
         private set
+
+    val groups: List<GroupSummary> get() = getGroups()
 
     /**
      * I don't like it here because using String "make us loose the track of the previous string"
@@ -42,33 +43,28 @@ class EditorStateView(
     var password by mutableStateOf("")
         private set
 
-    private val defaultGroup = groups.firstOrNull() ?: GroupSummary(
-        groupId = -1,
-        name = "Unknown"
-    )
-
     private fun clean(){
         editorState = EntryCard(
             id = 0,
             site = "",
             login = "",
-            group = defaultGroup
+            group = groups.firstOrNull() ?: GroupSummary(groupId = -1, name = "Unknown")
         )
         password = ""
     }
 
     fun initialize(entry: EntryCard?){
         if (entry == null){
-            clean()
-        } else {
             editorState = EntryCard(
-                id = entry.id,
-                site = entry.site,
-                login = entry.login,
-                group = entry.group
+                id = 0,
+                site = "",
+                login = "",
+                group = groups.firstOrNull() ?: GroupSummary(groupId = -1, name = "Unknown")
             )
-            password = ""
+        } else {
+            editorState = entry
         }
+        password = ""
         isEditorOpen.value = true
         Log.d("EDITOR_STATE", "Editor state initialized")
     }
