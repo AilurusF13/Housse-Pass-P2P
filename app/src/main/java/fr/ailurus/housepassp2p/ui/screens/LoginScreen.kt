@@ -92,7 +92,7 @@ fun LoginScreen(
                                     Modifier
                                         .padding(top = AppDimensions.PaddingLarge)
                                         .clickable {
-                                            Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG).show()
+//                                            Toast.makeText(context, "Erasing vault", Toast.LENGTH_LONG).show()
                                             viewModel.resetVault()
                                             onResetDb()
                                         },
