@@ -2,6 +2,7 @@ package fr.ailurus.housepassp2p.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fr.ailurus.housepassp2p.data.entities.EntrySummary
 import fr.ailurus.housepassp2p.data.entities.GroupSummary
 import fr.ailurus.housepassp2p.data.repository.RepositoryManager
 import fr.ailurus.housepassp2p.data.uidatas.EntryCard
@@ -11,9 +12,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class VaultViewModel(
-    repositoryManager: RepositoryManager
+    val repositoryManager: RepositoryManager
 ): ViewModel() {
 
     // ---- VARIABLES
@@ -87,5 +89,16 @@ class VaultViewModel(
 
     fun onCloseEditor(){
         _isEditorOpen.value = false
+    }
+
+    // What happens if the input is wrong ?
+    suspend fun getPassword(entry: EntryCard): String{
+        val entrySummary = EntrySummary(
+            id = entry.id,
+            site = entry.site,
+            login = entry.login,
+            groupId = entry.group.groupId
+        )
+        return repositoryManager.getPassword(entrySummary).decodeToString()
     }
 }

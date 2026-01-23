@@ -2,6 +2,7 @@
 
 package fr.ailurus.housepassp2p.ui.screens
 
+import android.content.ClipData
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -14,7 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.Clipboard
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import fr.ailurus.housepassp2p.ui.components.vault.EditEntryDialog
 import fr.ailurus.housepassp2p.ui.components.vault.EntryListDisplay
@@ -22,6 +26,7 @@ import fr.ailurus.housepassp2p.ui.components.vault.FilterChipsRow
 import fr.ailurus.housepassp2p.ui.components.vault.SearchRow
 import fr.ailurus.housepassp2p.ui.viewmodels.AppViewModelProvider
 import fr.ailurus.housepassp2p.ui.viewmodels.VaultViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun VaultScreen (
@@ -31,6 +36,8 @@ fun VaultScreen (
 
     val uiState by viewModel.uiState.collectAsState()
     val editorUiState = viewModel.editorState
+
+    val clipboard: Clipboard = LocalClipboard.current
 
     Scaffold(
         modifier = modifier,
@@ -57,8 +64,22 @@ fun VaultScreen (
 
             EntryListDisplay(
                 entries = uiState.entries,
-                onEntryClick = { viewModel.onEditAction(entry = it) }
+                onEntryClick = { viewModel.onEditAction(entry = it) },
                 // Edit should be triggered on long click
+                onPasswordCopy = {
+                    viewModel.viewModelScope.launch {
+                        val clipData= ClipData.newPlainText("password", viewModel.getPassword(it))
+                        val clipEntry = ClipEntry(clipData)
+                        clipboard.setClipEntry(clipEntry)
+                    }
+                },
+                onLoginCopy = {
+                    viewModel.viewModelScope.launch {
+                        val clipData= ClipData.newPlainText("login", it.login)
+                        val clipEntry = ClipEntry(clipData)
+                        clipboard.setClipEntry(clipEntry)
+                    }
+                }
             )
 
             // Mock entry dialog
