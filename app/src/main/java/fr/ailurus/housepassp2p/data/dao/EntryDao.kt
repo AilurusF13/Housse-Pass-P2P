@@ -16,7 +16,7 @@ interface EntryDao {
     @Insert
     suspend fun insertEntries(entries: List<Entry>)
 
-    @Query("SELECT id, site_name, user_login, group_id FROM entries ORDER BY created_at")
+    @Query("SELECT id, site_name, user_login, group_id FROM entries ORDER BY created_at DESC")
     fun getEntries(): Flow<List<EntrySummary>>
 
     //  Mostly for debug tests
