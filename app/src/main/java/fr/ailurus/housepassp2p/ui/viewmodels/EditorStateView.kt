@@ -35,6 +35,8 @@ class EditorStateView(
 
     val groups: List<GroupSummary> get() = getGroups()
 
+    var oldState = EntryCard(0,  "", "", GroupSummary(0, ""))
+
     /**
      * I don't like it here because using String "make us loose the track of the previous string"
      *
@@ -43,27 +45,16 @@ class EditorStateView(
     var password by mutableStateOf("")
         private set
 
-    private fun clean(){
-        editorState = EntryCard(
-            id = 0,
-            site = "",
-            login = "",
-            group = groups.firstOrNull() ?: GroupSummary(groupId = -1, name = "Unknown")
-        )
-        password = ""
-    }
-
     fun initialize(entry: EntryCard?){
-        if (entry == null){
-            editorState = EntryCard(
+        editorState = entry
+            ?: EntryCard(
                 id = 0,
                 site = "",
                 login = "",
                 group = groups.firstOrNull() ?: GroupSummary(groupId = -1, name = "Unknown")
             )
-        } else {
-            editorState = entry
-        }
+
+        editorState?.let { oldState = it.copy() } // should always triggered
         password = ""
         isEditorOpen.value = true
         Log.d("EDITOR_STATE", "Editor state initialized")
@@ -75,6 +66,11 @@ class EditorStateView(
     fun updatePassword(v: String) { password = v }
 
     fun onSave(){
+        if (oldState == editorState){
+            isEditorOpen.value = false
+            return
+        }
+
         // TODO no restrictions on save yet
         val currentState = editorState
 

@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import fr.ailurus.housepassp2p.ui.viewmodels.EditorStateView
 
@@ -70,7 +71,7 @@ fun EditEntryDialog(
                 }
             }
         },
-        title = { Text(title) },
+        title = { Text(title, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center) },
         text = {
             Column {
                 EditField(
@@ -135,16 +136,11 @@ fun ConfirmDeleteDialog(
     onConfirm: () -> Unit,
 ){
     AlertDialog(
-        title = { Text(text = title) },
+        title = { Text(text = title, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center) },
         text = { Text(text = message) },
         confirmButton = {
-            Button(onClick = onConfirm) {
-                Text(text = "Confirm")
-            }
-        },
-        dismissButton = {
-            Button(onClick = onDismiss) {
-                Text(text = "Cancel")
+            Button(onClick = onConfirm, modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Confirm", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
             }
         },
         onDismissRequest = onDismiss,
