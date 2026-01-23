@@ -65,7 +65,7 @@ fun EditEntryDialog(
             }
         },
         dismissButton = {
-            if (editorStateView.editorState != null){
+            if (state.id != 0){
                 Button(onClick = { showConfirmDelete = true }) {
                     Icon(Icons.Default.Delete, "Delete")
                 }
