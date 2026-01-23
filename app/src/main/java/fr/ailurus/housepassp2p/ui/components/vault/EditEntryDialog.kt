@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Groups3
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -34,9 +35,26 @@ fun EditEntryDialog(
     editorStateView: EditorStateView,
     onDismiss: () -> Unit,
 ) {
-    val state = editorStateView.editorState
+    val state = editorStateView.editorState ?: return
+
     val title = if (editorStateView.editorState == null) "New entry" else "Edit entry"
     var groupExtended by remember { mutableStateOf(false) }
+
+    var showConfirmDelete by remember { mutableStateOf(false) }
+
+    if (showConfirmDelete){
+        ConfirmDeleteDialog(
+            title = "Delete entry",
+            message = "Are you sure you want to delete this entry?",
+            onDismiss = {
+                showConfirmDelete = false
+            },
+            onConfirm = {
+                editorStateView.onDelete()
+                showConfirmDelete = false
+            }
+        )
+    }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -47,7 +65,7 @@ fun EditEntryDialog(
         },
         dismissButton = {
             if (editorStateView.editorState != null){
-                Button(onClick = { editorStateView.onDelete() }) {
+                Button(onClick = { showConfirmDelete = true }) {
                     Icon(Icons.Default.Delete, "Delete")
                 }
             }
@@ -55,10 +73,9 @@ fun EditEntryDialog(
         title = { Text(title) },
         text = {
             Column {
-
                 EditField(
                     // Check why its required
-                    value = state!!.site,
+                    value = state.site,
                     onValueChange = { editorStateView.updateSite(it) },
                     placeholder = "site"
                 )
@@ -107,5 +124,29 @@ fun EditEntryDialog(
                 }
             }
         }
+    )
+}
+
+@Composable
+fun ConfirmDeleteDialog(
+    title: String,
+    message: String,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit,
+){
+    AlertDialog(
+        title = { Text(text = title) },
+        text = { Text(text = message) },
+        confirmButton = {
+            Button(onClick = onConfirm) {
+                Text(text = "Confirm")
+            }
+        },
+        dismissButton = {
+            Button(onClick = onDismiss) {
+                Text(text = "Cancel")
+            }
+        },
+        onDismissRequest = onDismiss,
     )
 }
