@@ -3,6 +3,7 @@ package fr.ailurus.housepassp2p.ui.components.vault
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,7 +37,10 @@ fun EntryListDisplay(
     onLoginCopy : (EntryCard) -> Unit = {},
 ) {
     LazyColumn (
-        modifier = Modifier.fillMaxSize() // or width
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(
+            bottom = 80.dp
+        )
     ) {
         items(entries) { entry ->
             Card(
