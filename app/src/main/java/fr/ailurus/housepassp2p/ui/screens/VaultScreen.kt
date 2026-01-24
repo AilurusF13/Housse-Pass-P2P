@@ -3,6 +3,9 @@
 package fr.ailurus.housepassp2p.ui.screens
 
 import android.content.ClipData
+import android.content.ClipDescription
+import android.os.Build
+import android.os.PersistableBundle
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -26,6 +29,8 @@ import fr.ailurus.housepassp2p.ui.components.vault.FilterChipsRow
 import fr.ailurus.housepassp2p.ui.components.vault.SearchRow
 import fr.ailurus.housepassp2p.ui.viewmodels.AppViewModelProvider
 import fr.ailurus.housepassp2p.ui.viewmodels.VaultViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -67,10 +72,19 @@ fun VaultScreen (
                 onEntryClick = { viewModel.onEditAction(entry = it) },
                 // Edit should be triggered on long click
                 onPasswordCopy = {
-                    viewModel.viewModelScope.launch {
+                    viewModel.viewModelScope.launch(Dispatchers.Main) {
                         val clipData= ClipData.newPlainText("password", viewModel.getPassword(it))
+                        clipData.description.extras = PersistableBundle().apply {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true)
+                            }
+                        }
                         val clipEntry = ClipEntry(clipData)
                         clipboard.setClipEntry(clipEntry)
+
+                        delay(60_000)
+                        val clipEmpty = ClipData.newPlainText("", "")
+                        clipboard.setClipEntry( ClipEntry(clipEmpty) )
                     }
                 },
                 onLoginCopy = {
