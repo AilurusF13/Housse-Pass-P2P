@@ -12,6 +12,8 @@ The vast majority of password managers are either cloud-based or fully local. Th
 
 - LAN Group Sharing: The application allows you to easily share password groups with other users in your home, using exclusively the Local Area Network (LAN).
 
+# credits 
+- SQLcipher for the databas encryption https://github.com/sqlcipher/sqlcipher
 ## Technicity
 
 The application is built to run on the Kotlin JVM, prioritizing security.
